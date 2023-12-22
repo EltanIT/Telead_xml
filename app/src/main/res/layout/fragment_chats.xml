@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.ChatsFragment"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="5dp"
+    android:translationZ="2dp"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginHorizontal="32dp"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chats_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:orientation="vertical"
+        app:spanCount="2"
+        android:layout_marginVertical="22dp"
+        android:paddingHorizontal="16dp"
+        tools:listitem="@layout/item_chat"
+        />
+
+</androidx.cardview.widget.CardView>

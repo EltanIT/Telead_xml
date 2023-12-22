@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.MyCoursesOngoingLessonsFragment"
+    android:background="@color/activity_back"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="32dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingHorizontal="32dp"
+            >
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Мои Курсы"
+                android:textSize="21sp"
+                android:textColor="#202244"
+                android:layout_marginStart="8dp"
+                />
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/et_white_style"
+            android:drawableRight="@drawable/ic_filter_search"
+            android:drawablePadding="8dp"
+            android:paddingHorizontal="16dp"
+            android:hint="Поиск.."
+            android:layout_marginTop="32dp"
+            android:textAlignment="textStart"
+            android:translationZ="3dp"
+            android:layout_marginHorizontal="32dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:translationZ="2dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/white"
+                >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lessons_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:orientation="vertical"
+                    app:spanCount="2"
+                    android:layout_marginVertical="8dp"
+                    tools:listitem="@layout/item_lesson"
+                    android:paddingHorizontal="16dp"
+                    />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="25dp"
+        android:translationZ="10dp"
+        android:layout_gravity="bottom"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/continue_course"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableRight="@drawable/btn_round_white"
+            android:text="Продолжить курс"
+            android:background="@drawable/btn_with_arrow_accent_style"
+            android:paddingStart="22dp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="38dp"
+            />
+
+
+        </androidx.cardview.widget.CardView>
+
+</FrameLayout>

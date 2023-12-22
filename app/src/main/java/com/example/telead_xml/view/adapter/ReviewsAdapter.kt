@@ -1,0 +1,40 @@
+package com.example.telead_xml.view.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.telead_xml.R
+import com.example.telead_xml.databinding.ItemReviewsBinding
+import com.example.telead_xml.domen.objects.ReviewData
+
+class ReviewsAdapter(val list: ArrayList<ReviewData>) : RecyclerView.Adapter<ReviewsAdapter.ViewHolder>() {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding = ItemReviewsBinding.bind(itemView)
+        val resources = itemView.resources
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_reviews, parent, false)
+        return ViewHolder(view)
+    }
+
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val courses = list[position]
+        holder.binding.name.text = courses.name
+        holder.binding.rating.text = courses.rating.toString()
+        holder.binding.description.text = courses.description
+        holder.binding.likeCount.text = courses.likes.toString()
+        holder.binding.time.text = courses.date
+
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+}

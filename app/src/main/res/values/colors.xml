@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="back_50">#332244CC</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="transparent">#00FFFFFF</color>
+    <color name="accent">#0961F5</color>
+    <color name="activity_back">#F5F9FF</color>
+    <color name="border_color">#33BDC433</color>
+
+    <color name="category_btn_text_selected_color">#FFFFFFFF</color>
+    <color name="category_btn_text_unselected_color">#202244</color>
+</resources>

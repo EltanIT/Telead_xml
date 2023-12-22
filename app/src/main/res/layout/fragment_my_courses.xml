@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.MyCoursesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="32dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingHorizontal="32dp"
+            >
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                />
+            <TextView
+                android:id="@+id/name_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Мои Курсы"
+                android:textSize="21sp"
+                android:textColor="#202244"
+                android:layout_marginStart="8dp"
+                />
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/et_white_style"
+            android:drawableRight="@drawable/ic_filter_search"
+            android:drawablePadding="8dp"
+            android:paddingHorizontal="16dp"
+            android:hint="Поиск.."
+            android:layout_marginTop="32dp"
+            android:textAlignment="textStart"
+            android:translationZ="3dp"
+            android:layout_marginHorizontal="32dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="32dp"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:textColor="#202244"
+                android:text="Завершенные"
+                android:textSize="15sp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/completed"
+                android:background="@drawable/categories_home_btn_style"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:textColor="#202244"
+                android:text="Текущие"
+                android:textSize="15sp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/ongoing"
+                android:background="@drawable/categories_home_btn_style"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+
+                />
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/viewpager"
+            />
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.RegistrationNowFragment"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="32dp"
+        android:gravity="center_horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logo_text"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Давайте начнем.!"
+            android:textSize="24sp"
+            android:textColor="#202244"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Создайте учетную запись, чтобы продолжить все ваши курсы"
+            android:textSize="14sp"
+            android:textColor="#545454"
+            android:layout_marginTop="8dp"
+            />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/et_white_style"
+            android:layout_marginTop="32dp"
+            android:drawableLeft="@drawable/ic_email"
+            android:paddingHorizontal="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:hint="Email"
+            android:textAlignment="textStart"
+            android:drawablePadding="8dp"
+            android:textColorHint="#505050"
+            />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/et_white_style"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/ic_password"
+            android:drawableRight="@drawable/ic_eye_close"
+            android:paddingHorizontal="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:hint="Пароль"
+            android:textAlignment="textStart"
+            android:drawablePadding="8dp"
+            android:textColorHint="#505050"
+            />
+
+        <LinearLayout
+            android:id="@+id/check_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            >
+            <CheckBox
+                android:id="@+id/check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Соглашение с Правилами и Условиями"
+                android:textSize="13sp"
+                android:textColor="#545454"
+                />
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/btn_round_white"
+            android:text="Зарегистрироваться"
+            android:background="@drawable/btn_with_arrow_accent_style"
+            android:paddingStart="22dp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="22dp"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Или Продолжить С"
+            android:textSize="14sp"
+            android:textColor="#545454"
+            android:textAlignment="center"
+            android:layout_marginTop="8dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_google"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_apple"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Уже есть аккаунт? "
+                android:textSize="14sp"
+                android:textColor="#545454"
+                android:textAlignment="center"
+                android:layout_marginTop="32dp"
+                />
+            <TextView
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ВОЙТИ"
+                android:textSize="14sp"
+                android:textColor="@color/accent"
+                android:textAlignment="center"
+                android:layout_marginTop="32dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

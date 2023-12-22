@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.WriteAReviewsFragment"
+    android:background="@color/activity_back"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="32dp"
+            android:gravity="center_horizontal"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingHorizontal="32dp"
+                >
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_arrow"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Написать отзыв"
+                    android:textSize="21sp"
+                    android:textColor="#202244"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:translationZ="2dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="32dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical"
+                    >
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardCornerRadius="16dp"
+                        >
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/black"
+                            android:id="@+id/image"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="12dp"
+                        android:paddingBottom="16dp"
+                        android:paddingTop="12dp"
+                        android:background="@color/white"
+                        >
+                        <TextView
+                            android:id="@+id/category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Graphic Design"
+                            android:textColor="#FF6B00"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            />
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Graphic Design Advanced"
+                            android:textColor="#202244"
+                            android:textSize="16sp"
+                            android:maxLines="2"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Добавить Фото (или) Видео"
+                android:textSize="18dp"
+                android:textColor="#202244"
+                android:paddingHorizontal="32dp"
+                android:layout_marginTop="16dp"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:translationZ="2dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="12dp"
+                >
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:paddingVertical="32dp"
+                        >
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_upload"
+
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Добавить Фото (или) Видео"
+                            android:textSize="14dp"
+                            android:textColor="#545454"
+                            android:paddingHorizontal="32dp"
+                            android:layout_marginTop="4dp"
+                            />
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/adding_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        />
+                </FrameLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Напишите свой Отзыв"
+                android:textSize="18dp"
+                android:textColor="#202244"
+                android:paddingHorizontal="32dp"
+                android:layout_marginTop="16dp"
+                />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:translationZ="2dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/white"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="16dp"
+                    android:paddingHorizontal="16dp"
+                    >
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:layout_weight="1"
+                        android:hint="Хотели бы вы написать что-нибудь об этом продукте?"
+                        android:textColorHint="#B4BDC4"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:gravity="top"
+                        android:maxLength="250"
+                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:id="@+id/character_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="*250"
+                            android:textSize="11dp"
+                            android:textColor="#B4BDC4"
+                            android:textAlignment="textEnd"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=" Символов Осталось"
+                            android:textSize="11dp"
+                            android:textColor="#B4BDC4"
+                            android:textAlignment="textEnd"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/enroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/btn_round_white"
+                android:text="Отправить отзыв"
+                android:background="@drawable/btn_with_arrow_accent_style"
+                android:paddingStart="22dp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:layout_marginTop="64dp"
+                android:layout_marginHorizontal="32dp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</FrameLayout>

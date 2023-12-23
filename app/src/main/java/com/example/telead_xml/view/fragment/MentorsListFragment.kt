@@ -15,7 +15,7 @@ import com.example.telead_xml.domen.objects.MentorData
 import com.example.telead_xml.view.adapter.TopMentorFullAdapter
 import com.example.telead_xml.view.listener.MentorListener
 
-class MentorsListFragment : Fragment() {
+class MentorsListFragment(s: String) : Fragment() {
 
     private lateinit var binding: FragmentMentorsListBinding
     private lateinit var vm: MentorsListViewModel

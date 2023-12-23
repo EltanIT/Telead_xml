@@ -117,7 +117,7 @@
                 android:textColor="#0961F5"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:id="@+id/search_text"
+                android:id="@+id/request_text"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,6 +134,7 @@
                     android:textColor="#0961F5"
                     android:textSize="12sp"
                     android:layout_weight="1"
+                    android:lines="1"
                     android:textAlignment="textEnd"
                     android:textStyle="bold"
                     android:id="@+id/count_found"

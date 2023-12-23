@@ -1,4 +1,4 @@
-package com.example.telead_xml.view.adapter.filters
+package com.example.telead_xml.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.ItemLessonBinding
 import com.example.telead_xml.domen.objects.LessonData
-import com.example.telead_xml.view.adapter.SectionsAdapter
 import com.example.telead_xml.view.listener.SectionListener
 
 class LessonsAdapter(val list: ArrayList<LessonData>, val listener: SectionListener) : RecyclerView.Adapter<LessonsAdapter.ViewHolder>() {

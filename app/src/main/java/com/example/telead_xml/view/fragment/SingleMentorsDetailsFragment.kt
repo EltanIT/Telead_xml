@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.telead_xml.databinding.FragmentSingleMentorsDetailsBinding
-import com.example.telead_xml.domen.objects.SingleCourseData
 import com.example.telead_xml.domen.objects.SingleMentorsData
 import com.example.telead_xml.view.adapter.IntroAdapter
 import com.google.gson.Gson
@@ -41,7 +40,7 @@ class SingleMentorsDetailsFragment : Fragment() {
         vm.getBundle(bundle)
 
         val adapter =  IntroAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, requireActivity().supportFragmentManager)
-        adapter.addFrag(CoursesListFragment())
+        adapter.addFrag(CoursesListFragment(vm.getRequest()?:""))
         adapter.addFrag(SingleMentorsDetailsRatingsFragment())
         binding.viewPager.adapter = adapter
 
@@ -82,7 +81,7 @@ class SingleMentorsDetailsFragment : Fragment() {
 
 
     private fun subscription() {
-        vm.courseDetails.observe(viewLifecycleOwner){
+        vm.mentorDetails.observe(viewLifecycleOwner){
             if (it!=null){
                 binding.name.text = it.name
                 binding.post.text = it.post
@@ -97,7 +96,7 @@ class SingleMentorsDetailsFragment : Fragment() {
 
 
 class SingleMentorsDetailsViewModel(val context: Context): ViewModel(){
-    val courseDetails = MutableLiveData(
+    val mentorDetails = MutableLiveData(
         SingleMentorsData("Christopher J. Levine",
         "Graphic Designer At Google",
         26,
@@ -112,9 +111,13 @@ class SingleMentorsDetailsViewModel(val context: Context): ViewModel(){
             val courseJson = bundle.getString("mentor", null)
             if (courseJson!=null){
                 val gson = Gson()
-                courseDetails.value = gson.fromJson(courseJson, SingleMentorsData::class.java)
+                mentorDetails.value = gson.fromJson(courseJson, SingleMentorsData::class.java)
             }
         }
+    }
+
+    fun getRequest(): String? {
+        return mentorDetails.value?.post
     }
 }
 

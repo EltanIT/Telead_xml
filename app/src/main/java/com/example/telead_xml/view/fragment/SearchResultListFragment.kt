@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentSearchResultListBinding
-import com.example.telead_xml.domen.objects.SearchHistoryData
+import com.example.telead_xml.domen.objects.RequestData
 import com.example.telead_xml.view.adapter.IntroAdapter
 
 class SearchResultListFragment : Fragment() {
@@ -34,8 +34,8 @@ class SearchResultListFragment : Fragment() {
 
     private fun setting() {
         val adapter =  IntroAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, requireActivity().supportFragmentManager)
-        adapter.addFrag(CoursesListFragment())
-        adapter.addFrag(MentorsListFragment())
+        adapter.addFrag(CoursesListFragment(vm.getRequest()?:""))
+        adapter.addFrag(MentorsListFragment(vm.getRequest()?:""))
         binding.viewpager.adapter = adapter
 
         binding.mentors.setOnClickListener {
@@ -100,21 +100,19 @@ class SearchResultListFragment : Fragment() {
 
 
 class SearchResultListViewModel(val context: Context): ViewModel(){
-    val historyList = MutableLiveData(ArrayList<SearchHistoryData>())
+    val requestData = MutableLiveData(RequestData())
 
     private fun getHistory(){
-        historyList.value?.add(SearchHistoryData("3D design"))
-        historyList.value?.add(SearchHistoryData("3D design"))
-        historyList.value?.add(SearchHistoryData("3D design"))
-        historyList.value?.add(SearchHistoryData("3D design"))
-        historyList.value?.add(SearchHistoryData("3D design"))
 
-        historyList.value = historyList.value
     }
 
 
     fun setting() {
         getHistory()
+    }
+
+    fun getRequest(): String? {
+        return requestData.value?.request
     }
 }
 

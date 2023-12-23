@@ -1,5 +1,6 @@
 package com.example.telead_xml.data.repository.course_category
 
+import android.util.Log
 import com.example.telead_xml.config.URLs
 import com.example.telead_xml.domen.objects.FilterData
 import com.example.telead_xml.domen.objects.ResponseData
@@ -25,12 +26,13 @@ class GetCoursesCategoriesRepository {
         val body = RequestBody.create("application/json".toMediaTypeOrNull(),gson.toJson(bodyMap))
         val request = Request.Builder()
             .url(url)
-            .post(body)
+            .get()
             .addHeader("accept", "application/json")
             .addHeader("Content-Type", "application/json")
             .build()
         try {
             client.newCall(request).execute().use { response ->
+                Log.i("swagger", response.code.toString())
                 return ResponseData(response, response.body?.string())
             }
         }catch (e: IOException){

@@ -14,24 +14,21 @@ import com.example.telead_xml.databinding.FragmentCoursesListBinding
 import com.example.telead_xml.domen.objects.CoursesData
 import com.example.telead_xml.view.adapter.PopularFullCoursesAdapter
 import com.example.telead_xml.view.listener.CourseListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class CoursesListFragment(val request: String) : Fragment() {
+class MentorsCoursesListFragment(val request: String) : Fragment() {
 
     private lateinit var binding: FragmentCoursesListBinding
-    private lateinit var vm: CoursesListViewModel
+    private lateinit var vm: MentorsCoursesListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCoursesListBinding.inflate(layoutInflater)
-        vm = ViewModelProvider(this, CoursesListViewModelFactory(requireContext()))[CoursesListViewModel::class.java]
+        vm = ViewModelProvider(this, MentorsCoursesListViewModelFactory(requireContext()))[MentorsCoursesListViewModel::class.java]
         subscription()
         setting()
-        vm.setting(request)
+        vm.setting()
         return binding.root
     }
 
@@ -40,7 +37,7 @@ class CoursesListFragment(val request: String) : Fragment() {
     }
 
     private fun subscription() {
-        vm.coursesList.observe(viewLifecycleOwner){
+        vm.popularCoursesList.observe(viewLifecycleOwner){
             if (it != null){
                 binding.coursesRv.adapter = PopularFullCoursesAdapter(it, object: CourseListener {
                     override fun click(id: String) {
@@ -63,27 +60,21 @@ class CoursesListFragment(val request: String) : Fragment() {
 }
 
 
-class CoursesListViewModel(val context: Context): ViewModel(){
-    val coursesList = MutableLiveData(ArrayList<CoursesData>())
+class MentorsCoursesListViewModel(val context: Context): ViewModel(){
+    val popularCoursesList = MutableLiveData(ArrayList<CoursesData>())
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private fun getCourses(){
 
-
-    private fun getCourses(request: String) {
-        coroutineScope.launch {
-
-        }
-
-        coursesList.value = coursesList.value
+        popularCoursesList.value = popularCoursesList.value
     }
 
-    fun setting(request: String) {
-        getCourses(request)
+    fun setting() {
+        getCourses()
     }
 }
 
-class CoursesListViewModelFactory(val context: Context): ViewModelProvider.Factory{
+class MentorsCoursesListViewModelFactory(val context: Context): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return CoursesListViewModel(context = context) as T
+        return MentorsCoursesListViewModel(context = context) as T
     }
 }

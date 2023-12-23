@@ -34,9 +34,9 @@ class FilterVideoDurationAdapter(val list: ArrayList<FilterCategoryData>, val li
 
         holder.binding.checkBox.setOnCheckedChangeListener { compoundButton, state ->
             if (state){
-                listener.add(filter.id!!)
+                listener.add(filter.name)
             }else{
-                listener.remove(filter.id!!)
+                listener.remove(filter.name)
             }
         }
     }

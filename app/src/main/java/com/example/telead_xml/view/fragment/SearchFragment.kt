@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -50,24 +51,32 @@ class SearchFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        binding.search.setOnTouchListener(object: OnTouchListener{
-            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                val RIGHT = 2
-                if (p0?.x!! >= (binding.search.right - binding.search.compoundDrawables[RIGHT].bounds.width())){
+        binding.search.setOnTouchListener {v, event ->
+            val RIGHT = 2
+            if(event.action == MotionEvent.ACTION_UP) {
+                if(event.rawX >= (binding.search.right - binding.search.compoundDrawables[RIGHT].bounds.width())) {
+                    val bundle = Bundle()
+                    bundle.putString("request", vm.getRequest()?:"")
+                    val fragment = SearchResultListFragment()
+                    fragment.arguments = bundle
+
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .add(R.id.home_container_view, SearchResultListFragment())
+                        .add(R.id.home_container_view, fragment)
                         .addToBackStack("searchResultList")
                         .commit()
-                    return true
+                    true
                 }
-                return false
             }
-        })
+             false
+        }
         binding.search.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .add(R.id.home_container_view, SearchResultListFragment())
                 .addToBackStack("searchResultList")
                 .commit()
+        }
+        binding.search.addTextChangedListener {
+            vm.redactSearch(it.toString())
         }
         binding.search.setOnEditorActionListener(object: OnEditorActionListener{
             override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
@@ -98,6 +107,7 @@ class SearchFragment : Fragment() {
 
 class SearchViewModel(val context: Context): ViewModel(){
     val historyList = MutableLiveData(ArrayList<SearchHistoryData>())
+    val searchRequest = MutableLiveData<String>()
 
     private fun getHistory(){
        historyList.value?.add(SearchHistoryData("3D design"))
@@ -109,9 +119,17 @@ class SearchViewModel(val context: Context): ViewModel(){
         historyList.value = historyList.value
     }
 
+    fun redactSearch(txt: String){
+        searchRequest.value = txt
+    }
+
 
     fun setting() {
         getHistory()
+    }
+
+    fun getRequest(): String? {
+        return searchRequest.value
     }
 }
 

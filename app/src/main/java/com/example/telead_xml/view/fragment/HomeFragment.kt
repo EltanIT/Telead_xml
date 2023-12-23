@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -64,12 +65,25 @@ class HomeFragment : Fragment() {
                 .commit()
         }
 
-        binding.search.setOnTouchListener { _, _ ->
-            requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.full_home_container_view, FilterFragment())
-                .addToBackStack("search")
-                .commit()
-            true
+        binding.search.setOnTouchListener{v, event ->
+            val DRAWABLE_RIGHT = 2;
+            if(event.action == MotionEvent.ACTION_UP) {
+                if(event.rawX >= (binding.search.right - binding.search.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .add(R.id.full_home_container_view, FilterFragment())
+                        .addToBackStack("filter")
+                        .commit()
+                    true
+                }else{
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .add(R.id.full_home_container_view, SearchFragment())
+                        .addToBackStack("search")
+                        .commit()
+                    true
+                }
+            }
+
+            false
         }
 
         binding.notification.setOnClickListener {

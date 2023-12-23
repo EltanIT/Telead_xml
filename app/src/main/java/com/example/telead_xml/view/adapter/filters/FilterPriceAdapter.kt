@@ -34,9 +34,9 @@ class FilterPriceAdapter(val list: ArrayList<FilterCategoryData>, val listener: 
 
         holder.binding.checkBox.setOnCheckedChangeListener { compoundButton, state ->
             if (state){
-                listener.add(filter.id!!)
+                listener.add(filter.name)
             }else{
-                listener.remove(filter.id!!)
+                listener.remove(filter.name)
             }
         }
     }

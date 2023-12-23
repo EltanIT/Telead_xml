@@ -20,6 +20,7 @@ import com.example.telead_xml.view.adapter.filters.FilterCategoryAdapter
 import com.example.telead_xml.view.adapter.filters.FilterFeaturesAdapter
 import com.example.telead_xml.view.adapter.filters.FilterPriceAdapter
 import com.example.telead_xml.view.adapter.filters.FilterRatingAdapter
+import com.example.telead_xml.view.adapter.filters.FilterVideoDurationAdapter
 import com.example.telead_xml.view.adapter.filters.FilterlevelsAdapter
 import com.example.telead_xml.view.listener.FilterListener
 import com.example.telead_xml.view.listener.FilterRatingListener
@@ -56,6 +57,10 @@ class FilterFragment : Fragment() {
         }
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+
+        binding.clear.setOnClickListener {
+            vm.clearList()
         }
     }
 
@@ -130,6 +135,25 @@ class FilterFragment : Fragment() {
                 })
             }
         }
+        vm.videoDurationList.observe(viewLifecycleOwner){
+            if (it!=null){
+                binding.videoDurationRv.adapter = FilterVideoDurationAdapter(it, object: FilterListener{
+                    override fun add(name: String?) {
+
+                    }
+
+                    override fun remove(name: String?) {
+
+                    }
+
+                })
+            }
+        }
+        vm.filter.observe(viewLifecycleOwner){
+            if (it!=null){
+               
+            }
+        }
 
         vm.statePost.observe(viewLifecycleOwner){
             if (it!=null){
@@ -144,7 +168,7 @@ class FilterFragment : Fragment() {
 
 
 class FilterViewModel(val context: Context): ViewModel(){
-    private val filter = MutableLiveData(FilterData(count = 2147483647, countSkipped = 2147483647))
+    val filter = MutableLiveData(FilterData())
     val statePost = MutableLiveData<Boolean>()
 
     val categoryList = MutableLiveData<ArrayList<FilterCategoryData>?>()
@@ -271,6 +295,11 @@ class FilterViewModel(val context: Context): ViewModel(){
         val gson = Gson()
         SaveFilter().execute(gson.toJson(filter.value), context)
         statePost.value = true
+    }
+
+    fun clearList() {
+        filter.value = FilterData()
+
     }
 
 }

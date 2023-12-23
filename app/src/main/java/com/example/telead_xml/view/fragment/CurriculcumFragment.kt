@@ -11,10 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentCurriculcumBinding
-import com.example.telead_xml.databinding.FragmentMyCoursesLessonsBinding
 import com.example.telead_xml.domen.objects.LessonData
-import com.example.telead_xml.view.adapter.MyLessonsAdapter
-import com.example.telead_xml.view.adapter.filters.LessonsAdapter
+import com.example.telead_xml.view.adapter.LessonsAdapter
 import com.example.telead_xml.view.listener.SectionListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

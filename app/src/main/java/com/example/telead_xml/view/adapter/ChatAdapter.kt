@@ -8,11 +8,13 @@ import com.example.telead_xml.R
 import com.example.telead_xml.databinding.ItemChatBinding
 import com.example.telead_xml.domen.objects.CallData
 import com.example.telead_xml.domen.objects.ChatData
+import com.squareup.picasso.Picasso
 
 class ChatAdapter(val list: ArrayList<ChatData>) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemChatBinding.bind(itemView)
         val resources = itemView.resources
+        val context = itemView.context
     }
 
     override fun onCreateViewHolder(
@@ -26,16 +28,19 @@ class ChatAdapter(val list: ArrayList<ChatData>) : RecyclerView.Adapter<ChatAdap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chat = list[position]
-        val messageCount = chat.message
 
         holder.binding.name.text = chat.name
         holder.binding.time.text = chat.time
         holder.binding.description.text = chat.lastMessage
 
+        Picasso.with(holder.context)
+            .load(chat.image)
+            .into(holder.binding.image)
 
-        if (messageCount>0){
-            holder.binding.messageCount.text = messageCount.toString()
-            holder.binding.messageCount.visibility = View.VISIBLE
+
+        if (chat.message != null && chat.message > 0){
+            holder.binding.messageCount.text = chat.message.toString()
+            holder.binding.messageCountView.visibility = View.VISIBLE
         }
 
     }

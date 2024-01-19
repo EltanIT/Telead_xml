@@ -14,6 +14,10 @@ import com.example.telead_xml.databinding.FragmentCoursesListBinding
 import com.example.telead_xml.domen.objects.CoursesData
 import com.example.telead_xml.view.adapter.PopularFullCoursesAdapter
 import com.example.telead_xml.view.listener.CourseListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MentorsCoursesListFragment(val request: String) : Fragment() {
 
@@ -40,7 +44,7 @@ class MentorsCoursesListFragment(val request: String) : Fragment() {
         vm.popularCoursesList.observe(viewLifecycleOwner){
             if (it != null){
                 binding.coursesRv.adapter = PopularFullCoursesAdapter(it, object: CourseListener {
-                    override fun click(id: String) {
+                    override fun click(id: String?) {
                         val bundle = Bundle()
                         bundle.putString("id", id)
                         val fragment = SingleCourseDetailsFragment()
@@ -50,6 +54,14 @@ class MentorsCoursesListFragment(val request: String) : Fragment() {
                             .add(R.id.full_home_container_view, fragment)
                             .addToBackStack("singleCourseDetails")
                             .commit()
+                    }
+
+                    override fun addBookmark(id: String?) {
+                        vm.addBookmark(id)
+                    }
+
+                    override fun removeBookmark(id: String?) {
+
                     }
 
                 })
@@ -63,6 +75,8 @@ class MentorsCoursesListFragment(val request: String) : Fragment() {
 class MentorsCoursesListViewModel(val context: Context): ViewModel(){
     val popularCoursesList = MutableLiveData(ArrayList<CoursesData>())
 
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+
     private fun getCourses(){
 
         popularCoursesList.value = popularCoursesList.value
@@ -70,6 +84,12 @@ class MentorsCoursesListViewModel(val context: Context): ViewModel(){
 
     fun setting() {
         getCourses()
+    }
+
+    fun addBookmark(id: String?) {
+        coroutineScope.launch{
+
+        }
     }
 }
 

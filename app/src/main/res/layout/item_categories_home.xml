@@ -6,6 +6,6 @@
     android:textColor="@drawable/categories_home_text_style"
     tools:text="3D Design"
     android:textSize="15sp"
-    android:layout_marginHorizontal="16dp"
+    android:layout_marginStart="25dp"
     android:id="@+id/name"
     />

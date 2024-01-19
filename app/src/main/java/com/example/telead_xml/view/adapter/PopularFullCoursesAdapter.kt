@@ -1,12 +1,12 @@
 package com.example.telead_xml.view.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.ItemFullCoursesBinding
-import com.example.telead_xml.databinding.ItemPopularCoursesHomeBinding
 import com.example.telead_xml.domen.objects.CoursesData
 import com.example.telead_xml.view.listener.CourseListener
 import java.lang.IndexOutOfBoundsException
@@ -31,16 +31,17 @@ class PopularFullCoursesAdapter(val list: ArrayList<CoursesData>, val listener: 
         holder.binding.name.text = courses.name
         try{
             holder.binding.category.text = courses.benefits[0].name
-        }catch (e: IndexOutOfBoundsException){
+        }catch (_: IndexOutOfBoundsException){
 
         }
         holder.binding.rating.text = courses.rating.toString()
         holder.binding.std.text = courses.countStudents.toString()
         holder.binding.price.text = courses.price.toString()
         holder.binding.priceFull.text = courses.price.toString()
+        holder.binding.image.setImageURI(Uri.parse(courses.imageUrl))
 
         holder.itemView.setOnClickListener {
-            listener.click(courses.id!!)
+            listener.click(courses.id?:"")
         }
 
     }

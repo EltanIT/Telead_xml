@@ -14,7 +14,7 @@ class CategoriesHomeAdapter(val list: ArrayList<CategoryData>) : RecyclerView.Ad
         val binding = ItemCategoriesHomeBinding.bind(itemView)
     }
 
-    private var selectedItem = 1
+    private var selectedItem = -1
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,17 +25,22 @@ class CategoriesHomeAdapter(val list: ArrayList<CategoryData>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val category = list[position]
-        holder.binding.name.text = category.name
+        try{
+            val category = list[position]
+            holder.binding.name.text = category.name
 
-        holder.binding.name.isSelected = (position == selectedItem)
+            holder.binding.name.isSelected = (position == selectedItem)
 
-        holder.binding.name.setOnClickListener {
-            val oldItem = selectedItem
-            selectedItem = holder.adapterPosition
-            notifyItemChanged(oldItem)
-            notifyItemChanged(selectedItem)
+            holder.binding.name.setOnClickListener {
+                val oldItem = selectedItem
+                selectedItem = holder.adapterPosition
+                notifyItemChanged(oldItem)
+                notifyItemChanged(selectedItem)
+            }
+        }catch (e: Exception){
+
         }
+
     }
 
     override fun getItemCount(): Int {

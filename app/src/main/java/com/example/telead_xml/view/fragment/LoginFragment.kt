@@ -2,6 +2,7 @@ package com.example.telead_xml.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -130,6 +131,7 @@ class LoginViewModel(val context: Context): ViewModel(){
                     SaveRefreshToken().execute(tokenData.refreshToken?:"", context)
                     SaveAccessToken().execute(tokenData.accessToken?:"", context)
                     SaveEmail().execute(data.value?.email ?: "", context)
+                    Log.i("swagger", accessToken.toString())
                 }
                 statePost.postValue(responseDate.response?.code)
             }else{

@@ -11,6 +11,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
+        android:layout_marginHorizontal="25dp"
         >
         <androidx.cardview.widget.CardView
             android:layout_width="54dp"
@@ -75,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#545454"
-                    tools:text="|"
+                    android:text="|"
                     android:layout_marginStart="5dp"
                     />
                 <TextView
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#545454"
-                    tools:text="24 нояб, 202х"
+                    tools:text="24 нояб, 2023"
                     android:layout_marginStart="5dp"
                     />
             </LinearLayout>
@@ -95,6 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_call"
+            android:id="@+id/call"
+            android:padding="4dp"
             />
 
 

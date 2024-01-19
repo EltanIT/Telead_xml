@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#0961F5"
+    android:id="@+id/back_image"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_banner_path2"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:src="@drawable/ic_banner_path1"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="30dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="25% скидка"
+            android:id="@+id/price_info"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textFontWeight="800"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Специальное предложение"
+            android:id="@+id/name"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textFontWeight="800"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Получите скидку на каждый заказ курса, действительную только на сегодня.!"
+                android:id="@+id/description"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textFontWeight="800"
+                android:layout_marginTop="10dp"
+                android:maxLines="3"
+                android:layout_weight="1"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</FrameLayout>

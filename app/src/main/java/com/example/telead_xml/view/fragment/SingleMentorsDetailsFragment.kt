@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.telead_xml.databinding.FragmentSingleMentorsDetailsBinding
 import com.example.telead_xml.domen.objects.SingleMentorsData
-import com.example.telead_xml.view.adapter.IntroAdapter
 import com.google.gson.Gson
 
 class SingleMentorsDetailsFragment : Fragment() {
@@ -29,20 +28,13 @@ class SingleMentorsDetailsFragment : Fragment() {
         vm = ViewModelProvider(this, SingleMentorsDetailsViewModelFactory(requireContext()))[SingleMentorsDetailsViewModel::class.java]
         subscription()
         setting()
+        vm.getBundle(arguments)
         return binding.root
     }
 
 
     private fun setting() {
         binding.couses.isSelected = true
-
-        val bundle = arguments
-        vm.getBundle(bundle)
-
-        val adapter =  IntroAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, requireActivity().supportFragmentManager)
-        adapter.addFrag(CoursesListFragment(vm.getRequest()?:""))
-        adapter.addFrag(SingleMentorsDetailsRatingsFragment())
-        binding.viewPager.adapter = adapter
 
         binding.ratings.setOnClickListener {
             binding.viewPager.setCurrentItem(1, true)
@@ -77,6 +69,10 @@ class SingleMentorsDetailsFragment : Fragment() {
             }
 
         })
+
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
 
@@ -88,6 +84,11 @@ class SingleMentorsDetailsFragment : Fragment() {
                 binding.coursesCount.text = it.courses.toString()
                 binding.students.text = it.students.toString()
                 binding.ratingCount.text = it.ratings.toString()
+
+                val adapter = com.example.telead_xml.view.adapter.FragmentAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, childFragmentManager)
+                adapter.addFrag(CoursesListFragment(vm.getRequest()?:""))
+                adapter.addFrag(SingleMentorsDetailsRatingsFragment())
+                binding.viewPager.adapter = adapter
             }
         }
     }

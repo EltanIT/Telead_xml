@@ -10,7 +10,7 @@ import com.example.telead_xml.databinding.ItemFilterBinding
 import com.example.telead_xml.domen.objects.FilterCategoryData
 import com.example.telead_xml.view.listener.FilterListener
 
-class FilterPriceAdapter(val list: ArrayList<FilterCategoryData>, val listener: FilterListener) : RecyclerView.Adapter<FilterPriceAdapter.ViewHolder>() {
+class FilterPriceAdapter(val list: ArrayList<FilterCategoryData>, val filter: ArrayList<String>?, val listener: FilterListener) : RecyclerView.Adapter<FilterPriceAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemFilterBinding.bind(itemView)
         val resources = itemView.resources
@@ -27,16 +27,26 @@ class FilterPriceAdapter(val list: ArrayList<FilterCategoryData>, val listener: 
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val filter = list[position]
+        val category = list[position]
 
-        holder.binding.name.text = filter.name
-        holder.binding.checkBox.isChecked = filter.check!!
+        if (filter?.size!! > 0){
+            for (i in filter){
+                if (category.name.equals(i)){
+                    holder.binding.checkBox.isChecked = true
+                    break
+                }else{
+                    holder.binding.checkBox.isChecked = false
+                }
+            }
+        }
+        holder.binding.name.text = category.name
+        holder.binding.checkBox.isChecked = category.check!!
 
         holder.binding.checkBox.setOnCheckedChangeListener { compoundButton, state ->
             if (state){
-                listener.add(filter.name)
+                listener.add(category.name)
             }else{
-                listener.remove(filter.name)
+                listener.remove(category.name)
             }
         }
     }

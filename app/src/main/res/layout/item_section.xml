@@ -4,75 +4,67 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="25dp"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
         android:paddingHorizontal="16dp"
         >
-        <androidx.cardview.widget.CardView
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            app:cardCornerRadius="45dp"
-            app:cardElevation="0dp"
-            android:backgroundTint="#F5F9FF"
-            >
-            <TextView
-                android:id="@+id/id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="01"
-                android:layout_gravity="center"
-                android:textColor="#202244"
-                android:textSize="14sp"
-                />
-        </androidx.cardview.widget.CardView>
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            >
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#202244"
-                tools:text="Why Using Graphic De"
-                android:singleLine="true"
-                android:layout_marginEnd="22dp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                />
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="#545454"
-                tools:text="15 Мин"
-                />
-        </LinearLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_play"
-            android:id="@+id/play"
-            android:padding="8dp"
+            android:text="Секция "
+            android:textColor="#202244"
+            android:textSize="15sp"
+            android:textStyle="bold"
             />
-
-
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01"
+            android:textColor="#202244"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" - "
+            android:textColor="#202244"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fjdaskfjsadlkf"
+            android:textColor="#0961F5"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="25 Мин"
+            android:textColor="#0961F5"
+            android:textSize="15sp"
+            />
     </LinearLayout>
-    <View
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#E8F1FF"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/sections_rv"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        tools:listitem="@layout/item_lesson"
+        tools:itemCount="3"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 </LinearLayout>

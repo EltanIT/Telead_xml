@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +8,7 @@
     android:scrollbars="none"
     android:overScrollMode="never"
     android:background="@color/activity_back"
+    android:fillViewport="true"
     >
 
     <LinearLayout
@@ -15,262 +16,267 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="32dp"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:gravity="center_horizontal"
+            app:cardElevation="30dp"
+            android:outlineSpotShadowColor="#14000000"
             >
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_back_arrow"
-                android:layout_marginStart="32dp"
-                android:layout_gravity="start"
-                />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:backgroundTint="@color/black"
-                app:cardCornerRadius="75dp"
-                app:cardElevation="0dp"
+                android:paddingTop="32dp"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
                 >
                 <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_arrow"
+                    android:layout_marginStart="32dp"
+                    android:layout_gravity="start"
+                    />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:backgroundTint="@color/black"
+                    app:cardCornerRadius="75dp"
+                    app:cardElevation="0dp"
+                    >
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/image"
+                        />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/image"
+                    android:layout_height="wrap_content"
+                    tools:text="Николай Николаич"
+                    android:gravity="center"
+                    android:textSize="21sp"
+                    android:textColor="#202244"
+                    android:layout_marginTop="8dp"
                     />
-            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Николай Николаич"
-                android:gravity="center"
-                android:textSize="21sp"
-                android:textColor="#202244"
-                android:layout_marginTop="8dp"
-                />
-
-            <TextView
-                android:id="@+id/post"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Lbpfqyth"
-                android:gravity="center"
-                android:textSize="13sp"
-                android:textColor="#545454"
-                android:layout_marginTop="2dp"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
-                >
+                <TextView
+                    android:id="@+id/post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Lbpfqyth"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:textColor="#545454"
+                    android:layout_marginTop="2dp"
+                    />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
                     >
-                    <TextView
-                        android:id="@+id/courses_count"
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="26"
-                        android:textSize="17sp"
-                        android:textColor="#202244"
-                        />
-                    <TextView
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        >
+                        <TextView
+                            android:id="@+id/courses_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="26"
+                            android:textSize="17sp"
+                            android:textColor="#202244"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Курсов"
+                            android:textSize="13sp"
+                            android:textColor="#545454"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Курсов"
-                        android:textSize="13sp"
-                        android:textColor="#545454"
-                        />
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        >
+                        <TextView
+                            android:id="@+id/students"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="26"
+                            android:textSize="17sp"
+                            android:textColor="#202244"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Студентов"
+                            android:textSize="13sp"
+                            android:textColor="#545454"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        >
+                        <TextView
+                            android:id="@+id/rating_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="26"
+                            android:textSize="17sp"
+                            android:textColor="#202244"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Рейтинг"
+                            android:textSize="13sp"
+                            android:textColor="#545454"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
                     android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="28dp"
+                    android:paddingHorizontal="32dp"
+
                     >
-                    <TextView
-                        android:id="@+id/students"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/cancal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:text="Подписаться"
+                        android:background="@drawable/btn_white_skip_style"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:translationZ="2dp"
+                        />
+                    <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="26"
-                        android:textSize="17sp"
-                        android:textColor="#202244"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Студентов"
-                        android:textSize="13sp"
-                        android:textColor="#545454"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    >
-                    <TextView
-                        android:id="@+id/rating_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="26"
-                        android:textSize="17sp"
-                        android:textColor="#202244"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Рейтинг"
-                        android:textSize="13sp"
-                        android:textColor="#545454"
-                        />
+                        app:cardElevation="8dp"
+                        android:outlineSpotShadowColor="#4D000000"
+                        app:cardCornerRadius="30dp"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginVertical="2dp"
+                        >
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/remove"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="Написать"
+                            android:background="@drawable/btn_with_arrow_accent_style"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            android:maxLines="1"
+                            android:textSize="18sp"
+                            android:textAlignment="center"
+                            android:translationZ="2dp"
+                            />
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="28dp"
-                android:paddingHorizontal="32dp"
-
-                >
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/cancal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:text="Подписаться"
-                    android:background="@drawable/btn_white_skip_style"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="4dp"
-                    />
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/remove"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:text="Написать"
-                    android:background="@drawable/btn_with_arrow_accent_style"
-                    android:textColor="@color/white"
-                    android:textAllCaps="false"
-                    android:maxLines="1"
-                    android:textSize="18sp"
-                    android:textAlignment="center"
-                    android:layout_weight="1"
-                    android:layout_marginStart="4dp"
-                    />
-
-
-            </LinearLayout>
-        </LinearLayout>
-
+        </androidx.cardview.widget.CardView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:background="@drawable/top_round_style"
+            android:backgroundTint="@color/white"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="15dp"
+            app:cardElevation="10dp"
             >
-
-            <androidx.cardview.widget.CardView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                android:backgroundTint="@color/white"
-                app:cardElevation="2dp"
-                android:translationZ="2dp"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginVertical="4dp"
+                android:text="Эти кванты - псевдоним nunc tantum possitne tanta Nec vero sum nescius esse utilitatem в истории без модного сладострастия."
+                android:paddingHorizontal="16dp"
+                android:gravity="center"
+                android:textColor="#A0A4AB"
+                android:textSize="13sp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
                 >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="16dp"
+                <FrameLayout
+                    android:id="@+id/couses"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/course_details_btn_style"
                     >
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Эти кванты - псевдоним nunc tantum possitne tanta Nec vero sum nescius esse utilitatem в истории без модного сладострастия."
-                        android:paddingHorizontal="16dp"
+                        android:text="Курсы"
+                        android:textColor="#202244"
+                        android:textSize="15sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
                         />
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/ratings"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/course_details_btn_style"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp"
-                        >
-                        <FrameLayout
-                            android:id="@+id/couses"
-                            android:layout_width="0dp"
-                            android:layout_height="52dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/course_details_btn_style"
-                            >
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Курсы"
-                                android:textColor="#202244"
-                                android:textSize="15sp"
-                                android:layout_gravity="center"
-                                android:textStyle="bold"
-                                />
-                        </FrameLayout>
-                        <FrameLayout
-                            android:id="@+id/ratings"
-                            android:layout_width="0dp"
-                            android:layout_height="52dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/course_details_btn_style"
-                            >
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Рейтинги"
-                                android:textColor="#202244"
-                                android:textSize="15sp"
-                                android:layout_gravity="center"
-                                android:textStyle="bold"
-                                />
-                        </FrameLayout>
+                        android:text="Рейтинги"
+                        android:textColor="#202244"
+                        android:textSize="15sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        />
+                </FrameLayout>
 
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+            </LinearLayout>
         </LinearLayout>
+
+
         <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/view_pager"
-            android:layout_marginHorizontal="32dp"
+            android:paddingHorizontal="32dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"
             />
     </LinearLayout>
 
-    
-
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

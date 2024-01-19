@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.telead_xml.R
 import com.example.telead_xml.config.Consts
 import com.example.telead_xml.data.repository.profile.GetProfileRepository
 import com.example.telead_xml.data.repository.profile.PutProfileRepository
@@ -23,6 +22,7 @@ import com.example.telead_xml.databinding.FragmentEditProfilesBinding
 import com.example.telead_xml.domen.objects.DobData
 import com.example.telead_xml.domen.objects.ProfileData
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,9 +52,9 @@ class EditProfilesFragment : Fragment() {
             }
         }
 
-        vm.data.observe(viewLifecycleOwner){
+        vm.profile.observe(viewLifecycleOwner){
             if (it != null){
-                binding.name.setText(it.fullname)
+                binding.name.setText(it.fullName)
                 binding.nickName.setText(it.nickname)
                 binding.email.setText(it.email)
                 binding.phone.setText(it.phone)
@@ -66,13 +66,23 @@ class EditProfilesFragment : Fragment() {
         vm.statePost.observe(viewLifecycleOwner){
             when (it) {
                 200 -> {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.login_fragment_container, CreateNewPinFragment())
-                        .addToBackStack("createNewPin")
-                        .commit()
+                    Toast.makeText(requireContext(), "Изменения внесены", Toast.LENGTH_SHORT).show()
                 }
                 409 -> {
                     Toast.makeText(requireContext(), "Номер занят", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    Toast.makeText(requireContext(), "Ошибка соединения", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        vm.stateGet.observe(viewLifecycleOwner){
+            when (it) {
+                200 -> {
+
+                }
+                404 -> {
+                    Toast.makeText(requireContext(), "Не найдено", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     Toast.makeText(requireContext(), "Ошибка соединения", Toast.LENGTH_SHORT).show()
@@ -129,7 +139,7 @@ class EditProfilesFragment : Fragment() {
 
 
 class EditProfilesViewModel(val context: Context): ViewModel(){
-    val data = MutableLiveData<ProfileData?>()
+    val profile = MutableLiveData<ProfileData?>()
     val dob = MutableLiveData(
         DobData(
         Calendar.getInstance().get(Calendar.YEAR),
@@ -137,6 +147,7 @@ class EditProfilesViewModel(val context: Context): ViewModel(){
         Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
     )
     val statePost = MutableLiveData<Int?>()
+    val stateGet = MutableLiveData<Int?>()
 
     private val putProfileRepository = PutProfileRepository()
     private val getProfileRepository = GetProfileRepository()
@@ -144,53 +155,49 @@ class EditProfilesViewModel(val context: Context): ViewModel(){
 
     fun postData(){
         coroutineScope.launch {
-            val responseDate = putProfileRepository.request(data.value!!, GetAccessToken().execute(context)?:"")
+            val responseDate = putProfileRepository.request(profile.value!!, GetAccessToken().execute(context)?:"")
             statePost.postValue(responseDate?.response?.code)
         }
     }
     fun getData(){
         coroutineScope.launch {
             val responseDate = getProfileRepository.request(GetAccessToken().execute(context)?:"")
-            if (responseDate!=null){
+            if (responseDate?.response?.isSuccessful == true){
                 val gson = Gson()
-                val profile = gson.fromJson(responseDate.body, ProfileData::class.java)
-                if (profile == null){
-                    data.postValue(ProfileData())
-                }
-                else{
-                    data.postValue(profile)
-                }
+                val type = object: TypeToken<ProfileData>(){}.type
+                val p = gson.fromJson(responseDate.body, type) as ProfileData
+                profile.postValue(p)
             }
-            statePost.postValue(responseDate?.response?.code)
+            stateGet.postValue(responseDate?.response?.code)
         }
     }
 
 
 
     fun redactEmail(txt: String){
-        data.value?.email = txt
+        profile.value?.email = txt
     }
     fun redactNickName(txt: String){
-        data.value?.nickname = txt
+        profile.value?.nickname = txt
     }
     fun redactName(txt: String){
-        data.value?.fullname = txt
+        profile.value?.fullName = txt
     }
     fun redactBirthday(){
         val dpd = DatePickerDialog(context, { view, year, monthOfYear, dayOfMonth ->
-            data.value?.dob = ("$year-$monthOfYear-$dayOfMonth")
+            profile.value?.dob = ("$year-$monthOfYear-$dayOfMonth")
             dob.value = DobData(year, monthOfYear, dayOfMonth)
         }, dob.value!!.year, dob.value!!.month, dob.value!!.day)
         dpd.show()
     }
     fun redactPhone(txt: String){
-        data.value?.phone = txt
+        profile.value?.phone = txt
     }
     fun redactGender(pos: Int){
         if (pos > 0){
-            data.value?.gender = Consts().genderList[pos]
+            profile.value?.gender = Consts().genderList[pos]
         }else{
-            data.value?.gender = ""
+            profile.value?.gender = ""
         }
     }
 

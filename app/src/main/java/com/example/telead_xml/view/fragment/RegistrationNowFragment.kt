@@ -41,7 +41,6 @@ class RegistrationNowFragment : Fragment() {
     }
 
     private fun setting() {
-
         binding.login.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.login_fragment_container, LoginFragment())
@@ -51,12 +50,19 @@ class RegistrationNowFragment : Fragment() {
         binding.registration.setOnClickListener {
             vm.postData()
         }
-
         binding.email.addTextChangedListener {
             vm.redactEmail(it.toString())
         }
         binding.password.addTextChangedListener {
             vm.redactPassword(it.toString())
+        }
+        binding.checkView.setOnClickListener {
+            binding.checkBox.isChecked = !binding.checkBox.isChecked
+        }
+        binding.checkBox.setOnCheckedChangeListener { compoundButton, b ->
+            if (b){
+
+            }
         }
     }
 
@@ -72,10 +78,12 @@ class RegistrationNowFragment : Fragment() {
         vm.statePost.observe(viewLifecycleOwner){
             when (it) {
                 200 -> {
+                    vm.defaultStatePost()
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.login_fragment_container, FillYourProfileFragment())
                         .addToBackStack("fillYourProfile")
                         .commit()
+
                 }
                 400 -> {
                     Toast.makeText(requireContext(), "Ошибка, пропробуйте позже", Toast.LENGTH_SHORT).show()
@@ -84,18 +92,22 @@ class RegistrationNowFragment : Fragment() {
                     Toast.makeText(requireContext(), "Почта уже существует", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(requireContext(), "Ошибка соединения", Toast.LENGTH_SHORT).show()
+                    vm.defaultStatePost()
+//                    Toast.makeText(requireContext(), "Ошибка соединения", Toast.LENGTH_SHORT).show()
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.login_fragment_container, FillYourProfileFragment())
+                        .addToBackStack("fillYourProfile")
+                        .commit()
                 }
             }
         }
     }
-
 }
 
 
 class RegistrationNowViewModel(val context: Context): ViewModel(){
     val data = MutableLiveData(RegistrationData())
-    val statePost = MutableLiveData<Int?>()
+    var statePost = MutableLiveData<Int?>()
 
     private val signUpRepository = SignUpRepository()
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
@@ -115,20 +127,18 @@ class RegistrationNowViewModel(val context: Context): ViewModel(){
                     val jsonObject = responseDate.body?.let { JSONObject(it) }
                     val refreshToken = jsonObject?.getString("refreshToken")
                     val accessToken = jsonObject?.getString("accessToken")
-                    val tokenData: TokenData = TokenData(accessToken, refreshToken)
-                    SaveRefreshToken().execute(tokenData.refreshToken?:"", context)
-                    SaveAccessToken().execute(tokenData.accessToken?:"", context)
+                    SaveRefreshToken().execute(refreshToken?:"", context)
+                    SaveAccessToken().execute(accessToken?:"", context)
                     SaveEmail().execute(data.value?.email ?: "", context)
                 }
-                statePost.postValue(responseDate.response?.code)
-            }else{
-                statePost.postValue(null)
             }
+            statePost.postValue(responseDate?.response?.code)
         }
     }
 
-
-
+    fun defaultStatePost() {
+        statePost = MutableLiveData<Int?>()
+    }
 }
 
 class RegistrationNowViewModelFactory(val context: Context): ViewModelProvider.Factory{

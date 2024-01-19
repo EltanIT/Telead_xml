@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentTransactionsBinding
 import com.example.telead_xml.domen.objects.TransactionsData
 import com.example.telead_xml.view.adapter.TransactionsAdapter
+import com.example.telead_xml.view.listener.TransactionListener
 
 class TransactionsFragment : Fragment() {
 
@@ -26,6 +28,7 @@ class TransactionsFragment : Fragment() {
         vm = ViewModelProvider(this, TransactionsViewModelFactory(requireContext()))[TransactionsViewModel::class.java]
         subscription()
         setting()
+        vm.setting()
         return binding.root
     }
 
@@ -36,7 +39,20 @@ class TransactionsFragment : Fragment() {
     private fun subscription() {
         vm.transactionsList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.transactionRv.adapter = TransactionsAdapter(it)
+                binding.transactionRv.adapter = TransactionsAdapter(it, object: TransactionListener{
+                    override fun click(id: String) {
+                        val bundle = Bundle()
+                        bundle.putString("id", id)
+                        val fragment = EReceiptFragment()
+                        fragment.arguments = bundle
+
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .add(R.id.full_home_container_view, fragment)
+                            .addToBackStack("callsVoice")
+                            .commit()
+                    }
+
+                })
             }
         }
     }
@@ -48,11 +64,9 @@ class TransactionsViewModel(val context: Context): ViewModel(){
     val transactionsList = MutableLiveData(ArrayList<TransactionsData>())
 
     private fun getList(){
-        transactionsList.value?.add(TransactionsData("Николай", "Web Designer",""))
-        transactionsList.value?.add(TransactionsData("Николай", "Web Designer",""))
-        transactionsList.value?.add(TransactionsData("Николай", "Web Designer",""))
-        transactionsList.value?.add(TransactionsData("Николай", "Web Designer",""))
-        transactionsList.value?.add(TransactionsData("Николай", "Web Designer",""))
+        transactionsList.value?.add(TransactionsData("Создание личного брендинга", "Веб Дизайн",""))
+        transactionsList.value?.add(TransactionsData("Освоение Blender 3D", "Ui/UX Дизайн",""))
+        transactionsList.value?.add(TransactionsData("Веб-разработка с полным стеком", "Веб Разработка",""))
 
         transactionsList.value = transactionsList.value
     }

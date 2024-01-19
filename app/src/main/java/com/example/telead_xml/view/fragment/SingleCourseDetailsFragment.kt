@@ -1,6 +1,7 @@
 package com.example.telead_xml.view.fragment
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,10 +13,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.telead_xml.R
+import com.example.telead_xml.data.repository.course.GetCourseByIdRepository
 import com.example.telead_xml.databinding.FragmentSingleCourseDetailsBinding
 import com.example.telead_xml.domen.objects.CoursesData
-import com.example.telead_xml.view.adapter.IntroAdapter
+import com.example.telead_xml.view.adapter.FragmentAdapter
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SingleCourseDetailsFragment : Fragment() {
 
@@ -26,22 +33,17 @@ class SingleCourseDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding = FragmentSingleCourseDetailsBinding.inflate(layoutInflater)
         vm = ViewModelProvider(this, SingleCourseDetailsViewModelFactory(requireContext()))[SingleCourseDetailsViewModel::class.java]
         subscription()
         setting()
+        vm.getBundle(arguments)
         return binding.root
     }
 
     private fun setting() {
         binding.about.isSelected = true
-        val bundle = arguments
-        vm.getBundle(bundle)
-
-        val adapter =  IntroAdapter(androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, requireActivity().supportFragmentManager)
-        adapter.addFrag(AboutCourseFragment(vm.course.value?.description))
-        adapter.addFrag(CurriculumCourseFragment())
-        binding.viewPager.adapter = adapter
 
         binding.curriculcum.setOnClickListener {
             binding.viewPager.setCurrentItem(1, true)
@@ -88,6 +90,11 @@ class SingleCourseDetailsFragment : Fragment() {
                 .addToBackStack("curriculcum")
                 .commit()
         }
+
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
     }
 
 
@@ -99,7 +106,52 @@ class SingleCourseDetailsFragment : Fragment() {
                 binding.timeText.text = (it.durationInMinutes!!/60).toString() + " Часов"
                 binding.group.text = it.countStudents.toString()
                 binding.price.text = it.price.toString()
-                binding.image.setImageURI(Uri.parse(it.imageUrl))
+                binding.enroll.text = "Записаться на курс - ${it.price.toString()}₽"
+                binding.rating.text = it.rating.toString()
+                Picasso.with(requireContext())
+                    .load(it.imageUrl?:"")
+                    .into(binding.image)
+
+                val bundle = Bundle()
+                bundle.putString("id", it.id)
+                bundle.putString("desctiption", it.description)
+                val cf = CurriculumCourseFragment()
+                val af = AboutCourseFragment()
+                cf.arguments = bundle
+                val adapter =  FragmentAdapter(androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, childFragmentManager)
+                adapter.addFrag(af)
+                adapter.addFrag(cf)
+                binding.viewPager.adapter = adapter
+            }else{
+                //
+                binding.name.text = "Дизайн сайтов"
+                binding.category.text ="Дизайн"
+                binding.timeText.text = "5 Часов"
+                binding.group.text = "21"
+                binding.price.text = "28"
+                binding.enroll.text = "Записаться на курс - 28₽"
+                binding.rating.text = "4.2"
+                Picasso.with(requireContext())
+                    .load("https://gk-c.ru/wp-content/uploads/2022/01/graficheskiy-dizayner.jpg")
+                    .into(binding.image)
+
+                val bundle = Bundle()
+                bundle.putString("id", it?.id)
+                bundle.putString("desctiption", it?.description)
+                val cf = CurriculumCourseFragment()
+                val af = AboutCourseFragment()
+                cf.arguments = bundle
+                val adapter =  FragmentAdapter(androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, childFragmentManager)
+                adapter.addFrag(af)
+                adapter.addFrag(cf)
+                binding.viewPager.adapter = adapter
+                //
+            }
+        }
+
+        vm.stateGet.observe(viewLifecycleOwner){
+            if (it == true){
+
             }
         }
     }
@@ -107,21 +159,41 @@ class SingleCourseDetailsFragment : Fragment() {
 
 
 class SingleCourseDetailsViewModel(val context: Context): ViewModel(){
-    val course = MutableLiveData<CoursesData?>()
+    val course = MutableLiveData<CoursesData?>(null)
+    val stateGet = MutableLiveData<Boolean?>(null)
+
+    private val getCourseByIdRepository = GetCourseByIdRepository()
+
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
 
     fun getBundle(bundle: Bundle?){
         if (bundle!=null){
-            val courseJson = bundle.getString("course", null)
-            if (courseJson!=null){
-                val gson = Gson()
-                course.value = gson.fromJson(courseJson, CoursesData::class.java)
+            val id = bundle.getString("id", null)
+            if (id!=null && id.isNotEmpty()){
+                getCourse(id)
+            }
+            else{
+                course.value = null
             }
         }
     }
 
-    fun getId(): String? {
-        return course.value?.id
+    fun getCourse(id: String){
+        coroutineScope.launch {
+            val responseData = getCourseByIdRepository.request(id)
+            if (responseData?.response?.isSuccessful == true){
+                val gson = Gson()
+                val type = object: TypeToken<CoursesData>(){}.type
+                course.postValue(gson.fromJson(responseData.body, type))
+            }
+            stateGet.postValue(responseData?.response?.isSuccessful)
+        }
+
+    }
+
+    fun getId(): String {
+        return course.value?.id ?: ""
     }
 }
 

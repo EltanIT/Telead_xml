@@ -3,7 +3,15 @@
     <style name="Base.Theme.Telead_xml" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimaryDark">@color/activity_back</item>
+        <item name="colorPrimary">@color/activity_back</item>
     </style>
 
     <style name="Theme.Telead_xml" parent="Base.Theme.Telead_xml" />
+    
+    <style name="Theme.Material3.DayNight.NoActionBar.Launching">
+        <item name="android:windowBackground">@drawable/ic_splash_screen</item>
+        <item name="colorPrimaryDark">@color/activity_back</item>
+        <item name="colorPrimary">@color/activity_back</item>
+    </style>
 </resources>

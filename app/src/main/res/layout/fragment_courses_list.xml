@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.CoursesListFragment"
+    android:background="@drawable/bottom_round_style"
+    android:translationZ="2dp"
+    android:backgroundTint="@color/white"
+    android:layout_marginHorizontal="32dp"
     >
 
     <androidx.recyclerview.widget.RecyclerView
@@ -16,8 +20,9 @@
         android:scrollbars="none"
         android:orientation="vertical"
         app:spanCount="2"
-        android:layout_marginTop="16dp"
-        tools:listitem="@layout/item_full_courses"
+        android:layout_marginTop="3dp"
+        tools:listitem="@layout/item_full_mentor_courses"
+        android:paddingHorizontal="19dp"
         />
 
 </FrameLayout>

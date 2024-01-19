@@ -13,9 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentMyCoursesBinding
-import com.example.telead_xml.databinding.FragmentSearchResultListBinding
 import com.example.telead_xml.domen.objects.SearchHistoryData
-import com.example.telead_xml.view.adapter.IntroAdapter
 
 class MyCoursesFragment : Fragment() {
 
@@ -36,7 +34,7 @@ class MyCoursesFragment : Fragment() {
     private fun setting() {
         binding.completed.isSelected = true
         redactButton()
-        val adapter =  IntroAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, requireActivity().supportFragmentManager)
+        val adapter = com.example.telead_xml.view.adapter.FragmentAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, requireActivity().supportFragmentManager)
         adapter.addFrag(MyCompleteCoursesListFragment())
         adapter.addFrag(MyOngoingCoursesListFragment())
         binding.viewpager.adapter = adapter

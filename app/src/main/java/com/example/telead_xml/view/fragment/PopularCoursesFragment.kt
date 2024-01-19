@@ -15,6 +15,7 @@ import com.example.telead_xml.domen.objects.CategoryData
 import com.example.telead_xml.domen.objects.CoursesData
 import com.example.telead_xml.view.adapter.PopularCoursesCategoriesHomeAdapter
 import com.example.telead_xml.view.adapter.PopularFullCoursesAdapter
+import com.example.telead_xml.view.listener.CategoryListener
 import com.example.telead_xml.view.listener.CourseListener
 
 class PopularCoursesFragment : Fragment() {
@@ -48,7 +49,7 @@ class PopularCoursesFragment : Fragment() {
         vm.popularCoursesList.observe(viewLifecycleOwner){
             if (it != null){
                 binding.coursesRv.adapter = PopularFullCoursesAdapter(it, object: CourseListener {
-                    override fun click(id: String) {
+                    override fun click(id: String?) {
                         val bundle = Bundle()
                         bundle.putString("id", id)
                         val fragment = SingleCourseDetailsFragment()
@@ -60,12 +61,25 @@ class PopularCoursesFragment : Fragment() {
                             .commit()
                     }
 
+                    override fun addBookmark(id: String?) {
+
+                    }
+
+                    override fun removeBookmark(id: String?) {
+
+                    }
+
                 })
             }
         }
         vm.popularCoursesCategoryList.observe(viewLifecycleOwner){
             if (it != null){
-                binding.categoryRv.adapter = PopularCoursesCategoriesHomeAdapter(it)
+                binding.categoryRv.adapter = PopularCoursesCategoriesHomeAdapter(it, object: CategoryListener{
+                    override fun click(name: String?) {
+
+                    }
+
+                })
             }
         }
     }

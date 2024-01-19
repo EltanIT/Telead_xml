@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.Congratulations2Fragment"
-    android:background="@color/back_50">
+    android:background="@color/back_80">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

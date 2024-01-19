@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.ChatsFragment"
     app:cardCornerRadius="16dp"
-    app:cardElevation="5dp"
-    android:translationZ="2dp"
+    app:cardElevation="10dp"
+    android:outlineSpotShadowColor="#14000000"
     app:cardBackgroundColor="@color/white"
     android:layout_marginHorizontal="32dp"
     >
@@ -20,9 +20,8 @@
         android:overScrollMode="never"
         android:scrollbars="none"
         android:orientation="vertical"
-        app:spanCount="2"
-        android:layout_marginVertical="22dp"
-        android:paddingHorizontal="16dp"
+        android:paddingVertical="5dp"
+        android:clipToPadding="false"
         tools:listitem="@layout/item_chat"
         />
 

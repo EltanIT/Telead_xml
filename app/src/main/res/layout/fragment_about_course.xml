@@ -34,6 +34,7 @@
         android:textSize="18sp"
         android:textColor="#202244"
         android:paddingHorizontal="32dp"
+        android:layout_marginTop="16dp"
         />
     
     <LinearLayout
@@ -127,13 +128,14 @@
             android:textColor="#202244"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:layout_weight="1"
             />
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:id="@+id/category_btn"
+            android:gravity="center_vertical|end"
+            android:id="@+id/more_reviews"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -142,7 +144,6 @@
                 android:textAllCaps="true"
                 android:textColor="#0961F5"
                 android:textSize="12sp"
-                android:layout_weight="1"
                 android:textAlignment="textEnd"
                 android:textStyle="bold"
                 />
@@ -158,13 +159,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:scrollbars="none"
         android:overScrollMode="never"
         android:id="@+id/reviews_rv"
         tools:listitem="@layout/item_reviews"
         android:paddingHorizontal="32dp"
+        android:paddingBottom="32dp"
+        android:clipToPadding="false"
         />
 
 </LinearLayout>

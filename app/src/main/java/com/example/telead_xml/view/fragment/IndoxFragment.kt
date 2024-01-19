@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentIndoxBinding
-import com.example.telead_xml.domen.objects.SearchHistoryData
-import com.example.telead_xml.view.adapter.IntroAdapter
 
 class IndoxFragment : Fragment() {
 
@@ -35,7 +32,7 @@ class IndoxFragment : Fragment() {
     private fun setting() {
         binding.chats.isSelected = true
         redactButton()
-        val adapter =  IntroAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, requireActivity().supportFragmentManager)
+        val adapter = com.example.telead_xml.view.adapter.FragmentAdapter(FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, childFragmentManager)
         adapter.addFrag(ChatsFragment())
         adapter.addFrag(CallsFragment())
         binding.viewPager.adapter = adapter
@@ -51,6 +48,17 @@ class IndoxFragment : Fragment() {
             binding.chats.isSelected = true
             binding.calls.isSelected = false
             redactButton()
+        }
+        binding.search.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("id", "")
+            val fragment = IndoxCallsVoiceCallFragment()
+            fragment.arguments = bundle
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .add(R.id.full_home_container_view, fragment)
+                .addToBackStack("callsVoice")
+                .commit()
         }
 
         binding.viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {

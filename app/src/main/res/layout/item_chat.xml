@@ -4,13 +4,15 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
+        android:layout_marginHorizontal="25dp"
         >
         <androidx.cardview.widget.CardView
             android:layout_width="54dp"
@@ -70,6 +72,7 @@
                 android:backgroundTint="#0961F5"
                 app:cardCornerRadius="65dp"
                 android:visibility="gone"
+                android:id="@+id/messageCountView"
                 >
                 <TextView
                     android:id="@+id/message_count"
@@ -101,6 +104,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#E8F1FF"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="22dp"
         />
 </LinearLayout>

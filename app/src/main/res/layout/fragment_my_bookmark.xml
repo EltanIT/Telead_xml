@@ -35,12 +35,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 />
-            <ImageView
-                android:id="@+id/search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"
-                />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -52,6 +46,8 @@
             android:layout_marginTop="32dp"
             tools:listitem="@layout/item_popular_courses_categories_home"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:paddingHorizontal="16dp"
+            android:clipToPadding="false"
             />
 
         <androidx.recyclerview.widget.RecyclerView

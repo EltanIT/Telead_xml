@@ -78,7 +78,7 @@
                     android:orientation="vertical"
                     app:spanCount="2"
                     android:layout_marginVertical="8dp"
-                    tools:listitem="@layout/item_lesson"
+                    tools:listitem="@layout/item_section"
                     android:paddingHorizontal="16dp"
                     />
             </androidx.cardview.widget.CardView>

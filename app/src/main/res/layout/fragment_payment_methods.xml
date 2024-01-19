@@ -96,9 +96,10 @@
                         tools:text="Graphic Design Advanced"
                         android:textColor="#202244"
                         android:textSize="16sp"
-                        android:maxLines="2"
+                        android:maxLines="1"
                         android:textStyle="bold"
                         android:layout_marginTop="4dp"
+                        android:ellipsize="end"
                         />
                 </LinearLayout>
 
@@ -121,6 +122,8 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_payment_method"
             tools:itemCount="4"
+            android:scrollbars="none"
+            android:overScrollMode="never"
             android:layout_marginTop="16dp"
             />
 

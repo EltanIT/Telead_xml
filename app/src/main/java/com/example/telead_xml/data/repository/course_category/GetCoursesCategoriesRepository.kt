@@ -15,27 +15,28 @@ class GetCoursesCategoriesRepository {
 
     private val url = URLs().getCourseCategoriesUrl
 
-    fun request(): ResponseData?{
+    fun request(token: String): ResponseData?{
         val client = OkHttpClient()
 
         val bodyMap = mapOf(
-            "count" to 2147483647,
-            "loadPosition" to 2147483647)
+            "count" to 2,
+            "loadPosition" to 1)
         val gson = Gson()
 
         val body = RequestBody.create("application/json".toMediaTypeOrNull(),gson.toJson(bodyMap))
         val request = Request.Builder()
             .url(url)
-            .get()
+            .post(body)
             .addHeader("accept", "application/json")
             .addHeader("Content-Type", "application/json")
+            .addHeader("Authorization", token)
             .build()
         try {
             client.newCall(request).execute().use { response ->
-                Log.i("swagger", response.code.toString())
+                Log.i("swagger", response.code.toString() +" "+ response.body.toString())
                 return ResponseData(response, response.body?.string())
             }
-        }catch (e: IOException){
+        }catch (e: Exception){
             return null
         }
     }

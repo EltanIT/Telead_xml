@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentMyCoursesOngoingLessonsBinding
 import com.example.telead_xml.domen.objects.LessonData
+import com.example.telead_xml.domen.objects.SectionData
 import com.example.telead_xml.view.adapter.MyLessonsAdapter
 import com.example.telead_xml.view.listener.SectionListener
 
@@ -49,7 +50,7 @@ class MyCoursesOngoingLessonsFragment : Fragment() {
                             .commit()
                     }
 
-                })
+                },)
             }
         }
     }
@@ -62,7 +63,7 @@ class MyCoursesOngoingLessonsFragment : Fragment() {
 
 
 class MyCoursesOngoingLessonsViewModel(val context: Context): ViewModel(){
-    val lessonsList = MutableLiveData(ArrayList<LessonData>())
+    val lessonsList = MutableLiveData(ArrayList<SectionData>())
 
     private fun getCourses(){
 

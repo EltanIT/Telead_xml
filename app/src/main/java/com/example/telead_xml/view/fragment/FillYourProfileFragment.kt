@@ -2,6 +2,8 @@ package com.example.telead_xml.view.fragment
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,44 +46,8 @@ class FillYourProfileFragment : Fragment() {
         return binding.root
     }
 
-    private fun subscriptions() {
-        vm.checkEt.observe(viewLifecycleOwner){
-            binding.next.isEnabled = it
-        }
-
-        vm.dob.observe(viewLifecycleOwner){
-            if (it!=null){
-                binding.birthday.setText("${it.year}-${it.month}-${it.day}")
-            }
-        }
-
-        vm.data.observe(viewLifecycleOwner){
-            if (it != null){
-                binding.name.setText(it.fullname)
-                binding.nickName.setText(it.nickname)
-                binding.email.setText(it.email)
-                binding.phone.setText(it.phone)
-                binding.gender.setSelection(Consts().genderList.indexOf(it.gender))
-            }
-        }
-
-        vm.statePost.observe(viewLifecycleOwner){
-            when (it) {
-                200 -> {
-
-                }
-                409 -> {
-                    Toast.makeText(requireContext(), "Номер занят", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    Toast.makeText(requireContext(), "Ошибка соединения", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
     private fun setting() {
-        binding.next.isEnabled = false
+//        binding.next.isEnabled = false
         binding.gender.adapter = ArrayAdapter(requireContext(), com.chaos.view.R.layout.support_simple_spinner_dropdown_item, Consts().genderList)
 
         binding.email.addTextChangedListener{
@@ -122,11 +88,63 @@ class FillYourProfileFragment : Fragment() {
 
         binding.next.setOnClickListener {
             vm.postData()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.login_fragment_container, CreateNewPinFragment())
-                .addToBackStack("createNewPin")
-                .commit()
         }
+        binding.iconProfile.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            startActivityForResult(intent, Consts().OPEN_GALLERY)
+        }
+    }
+
+    private fun subscriptions() {
+//        vm.checkEt.observe(viewLifecycleOwner){
+//            binding.next.isEnabled = it
+//        }
+
+        vm.dob.observe(viewLifecycleOwner){
+            if (it!=null){
+                binding.birthday.text = "${it.year}-${it.month}-${it.day}"
+            }
+        }
+
+        vm.data.observe(viewLifecycleOwner){
+            if (it != null){
+                binding.name.setText(it.fullName)
+                binding.nickName.setText(it.nickname)
+                binding.email.setText(it.email)
+                binding.phone.setText(it.phone)
+                binding.gender.setSelection(Consts().genderList.indexOf(it.gender))
+            }
+        }
+
+        vm.statePost.observe(viewLifecycleOwner){
+
+            when (it) {
+                200 -> {
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.login_fragment_container, CreateNewPinFragment())
+                        .addToBackStack("createNewPin")
+                        .commit()
+                }
+                409 -> {
+                    Toast.makeText(requireContext(), "Номер занят", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    Toast.makeText(requireContext(), "Ошибка соединения", Toast.LENGTH_SHORT).show()
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.login_fragment_container, CreateNewPinFragment())
+                        .addToBackStack("createNewPin")
+                        .commit()
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == Consts().OPEN_GALLERY && data !=null){
+            binding.iconProfile.setImageURI(data.data ?: Uri.parse(""))
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
 
@@ -152,7 +170,7 @@ class FillYourProfileViewModel(val context: Context): ViewModel(){
         checkValue()
     }
     fun redactName(txt: String){
-        data.value?.fullname = txt
+        data.value?.fullName = txt
         checkValue()
     }
     fun redactBirthday(){
@@ -179,8 +197,8 @@ class FillYourProfileViewModel(val context: Context): ViewModel(){
     fun postData(){
         coroutineScope.launch {
             val responseDate = putProfileRepository.request(data.value!!, GetAccessToken().execute(context)?:"")
-            if (responseDate!=null){
-                statePost.postValue(responseDate.response?.code)
+            if (responseDate?.response?.isSuccessful == true){
+                statePost.postValue(responseDate.response.code)
             }else{
                 statePost.postValue(null)
             }
@@ -188,7 +206,7 @@ class FillYourProfileViewModel(val context: Context): ViewModel(){
     }
 
     private fun checkValue() {
-        checkEt.value = (data.value?.fullname?.isNotEmpty() == true
+        checkEt.value = (data.value?.fullName?.isNotEmpty() == true
                 && data.value?.nickname?.isNotEmpty() == true
                 && data.value?.dob?.isNotEmpty() == true
                 && data.value?.email?.isNotEmpty() == true

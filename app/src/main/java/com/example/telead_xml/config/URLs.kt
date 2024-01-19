@@ -17,6 +17,11 @@ class URLs {
     val putProfileUrl = URL(mainUrl+"profile")
     val getProfileUrl = URL(mainUrl+"profile")
 
+    //Bookmark
+    val postBookmark = URL(mainUrl+"bookmark")
+    val getBookmark = URL(mainUrl+"bookmark")
+    val removeBookmark = mainUrl+"bookmark/"
+
     //Course
     val postCourseUrl = URL(mainUrl+"course")
     val getCourseForFilterUrl = URL(mainUrl+"courses")
@@ -24,5 +29,6 @@ class URLs {
     val getCourseBenefitsUrl = mainUrl+"course-benefits"
 
     //CourseCategory
-    val getCourseCategoriesUrl = mainUrl+"course-categories"
+    val getCourseCategoriesUrl = URL(mainUrl+"course-categories")
+    val createCourseCategoriesUrl = URL(mainUrl+"course-category")
 }

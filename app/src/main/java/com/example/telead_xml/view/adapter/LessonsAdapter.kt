@@ -9,7 +9,7 @@ import com.example.telead_xml.databinding.ItemLessonBinding
 import com.example.telead_xml.domen.objects.LessonData
 import com.example.telead_xml.view.listener.SectionListener
 
-class LessonsAdapter(val list: ArrayList<LessonData>, val listener: SectionListener) : RecyclerView.Adapter<LessonsAdapter.ViewHolder>() {
+class LessonsAdapter(val list: ArrayList<LessonData>, val listener: SectionListener, val permission: Boolean) : RecyclerView.Adapter<LessonsAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemLessonBinding.bind(itemView)
         val resources = itemView.resources
@@ -28,28 +28,20 @@ class LessonsAdapter(val list: ArrayList<LessonData>, val listener: SectionListe
         val lesson = list[position]
 
         holder.binding.name.text = lesson.name
-        var duration = 0
-        for (i in lesson.sections){
-            duration += i.durationInMinutes!!
-        }
         val number = if (holder.adapterPosition<10){
-            "0${holder.adapterPosition}"
+            "0${holder.adapterPosition+1}"
         }else{
-            "${holder.adapterPosition}"
+            "${holder.adapterPosition+1}"
         }
-        holder.binding.number.text = number
-        holder.binding.duration.text = "$duration Мин"
+        holder.binding.id.text = number
+        holder.binding.time.text = "${lesson.durationInMinutes.toString()} Мин"
 
-        val play = object : SectionListener{
-            override fun play(videoUrl: String) {
-                listener.play(videoUrl)
+        if (permission){
+            holder.binding.play.setOnClickListener {
+                listener.play(lesson.id?:"")
             }
-        }
-
-        if (holder.adapterPosition>0){
-            holder.binding.sectionsRv.adapter = SectionsAdapter(lesson.sections, play, false)
         }else{
-            holder.binding.sectionsRv.adapter = SectionsAdapter(lesson.sections, play, true)
+            holder.binding.play.setImageDrawable(holder.resources.getDrawable(R.drawable.ic_castle))
         }
     }
 

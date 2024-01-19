@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.ItemLessonBinding
-import com.example.telead_xml.domen.objects.LessonData
+import com.example.telead_xml.databinding.ItemSectionBinding
+import com.example.telead_xml.domen.objects.SectionData
 import com.example.telead_xml.view.listener.SectionListener
 
-class MyLessonsAdapter(val list: ArrayList<LessonData>, val listener: SectionListener) : RecyclerView.Adapter<MyLessonsAdapter.ViewHolder>() {
+class MyLessonsAdapter(val list: ArrayList<SectionData>, val listener: SectionListener) : RecyclerView.Adapter<MyLessonsAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = ItemLessonBinding.bind(itemView)
+        val binding = ItemSectionBinding.bind(itemView)
         val resources = itemView.resources
     }
 
@@ -19,7 +20,7 @@ class MyLessonsAdapter(val list: ArrayList<LessonData>, val listener: SectionLis
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_lesson, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_section, parent, false)
         return ViewHolder(view)
     }
 
@@ -47,7 +48,7 @@ class MyLessonsAdapter(val list: ArrayList<LessonData>, val listener: SectionLis
             }
         }
 
-        holder.binding.sectionsRv.adapter = SectionsAdapter(lesson.sections, play, true)
+        holder.binding.sectionsRv.adapter = LessonsAdapter(lesson.sections, play, true)
     }
 
     override fun getItemCount(): Int {

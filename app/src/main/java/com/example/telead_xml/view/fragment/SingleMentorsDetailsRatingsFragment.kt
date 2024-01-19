@@ -14,6 +14,7 @@ import com.example.telead_xml.databinding.FragmentCoursesListBinding
 import com.example.telead_xml.databinding.FragmentSingleMentorsDetailsRatingsBinding
 import com.example.telead_xml.domen.objects.CoursesData
 import com.example.telead_xml.domen.objects.ReviewData
+import com.example.telead_xml.view.adapter.MentorReviewsAdapter
 import com.example.telead_xml.view.adapter.PopularFullCoursesAdapter
 import com.example.telead_xml.view.adapter.ReviewsAdapter
 import com.example.telead_xml.view.listener.CourseListener
@@ -43,7 +44,7 @@ class SingleMentorsDetailsRatingsFragment : Fragment() {
     private fun subscription() {
         vm.popularCoursesList.observe(viewLifecycleOwner){
             if (it != null){
-                binding.ratingRv.adapter = ReviewsAdapter(it)
+                binding.ratingRv.adapter = MentorReviewsAdapter(it)
             }
         }
     }
@@ -55,7 +56,7 @@ class SingleMentorsDetailsRatingsViewModel(val context: Context): ViewModel(){
     val popularCoursesList = MutableLiveData(ArrayList<ReviewData>())
 
     private fun getCourses(){
-        popularCoursesList.value?.add(ReviewData("Heather S. McMullen", "The Course is Very Good dolor sit amet, con sect tur adipiscing elit. Naturales divitias dixit parab les esse..", 4.3, 730, "2 Недели Назад"))
+        popularCoursesList.value?.add(ReviewData("Heather S. McMullen", "The Course is Very Good dolor sit amet, con sect tur adipiscing elit. Naturales divitias dixit parab les esse..", 4.3f, 730, "2 Недели Назад"))
 
         popularCoursesList.value = popularCoursesList.value
     }

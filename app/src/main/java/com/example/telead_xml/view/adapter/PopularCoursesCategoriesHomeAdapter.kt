@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.ItemPopularCoursesCategoriesHomeBinding
 import com.example.telead_xml.domen.objects.CategoryData
+import com.example.telead_xml.view.listener.CategoryListener
 
-class PopularCoursesCategoriesHomeAdapter(val list: ArrayList<CategoryData>) : RecyclerView.Adapter<PopularCoursesCategoriesHomeAdapter.ViewHolder>() {
+class PopularCoursesCategoriesHomeAdapter(val list: ArrayList<CategoryData>, val listener: CategoryListener) : RecyclerView.Adapter<PopularCoursesCategoriesHomeAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemPopularCoursesCategoriesHomeBinding.bind(itemView)
         val resources = itemView.resources
     }
-    private var selectedItem = 1
+    private var selectedItem = 0
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,7 +28,6 @@ class PopularCoursesCategoriesHomeAdapter(val list: ArrayList<CategoryData>) : R
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val category = list[position]
         holder.binding.name.text = category.name
-
 
         if (position == selectedItem){
             holder.binding.name.isSelected = true
@@ -43,7 +43,7 @@ class PopularCoursesCategoriesHomeAdapter(val list: ArrayList<CategoryData>) : R
             selectedItem = holder.adapterPosition
             notifyItemChanged(oldItem)
             notifyItemChanged(selectedItem)
-
+            listener.click(category.name)
         }
     }
 

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentMyCoursesLessonsBinding
-import com.example.telead_xml.domen.objects.LessonData
+import com.example.telead_xml.domen.objects.SectionData
 import com.example.telead_xml.view.adapter.MyLessonsAdapter
 import com.example.telead_xml.view.listener.SectionListener
 
@@ -59,10 +59,10 @@ class MyCoursesLessonsFragment : Fragment() {
 
 
 class MyCoursesLessonsViewModel(val context: Context): ViewModel(){
-    val lessonsList = MutableLiveData<ArrayList<LessonData>>()
+    val lessonsList = MutableLiveData<ArrayList<SectionData>>()
 
     private fun getCourses(){
-        lessonsList.value?.add(LessonData())
+        lessonsList.value?.add(SectionData())
 
         lessonsList.value = lessonsList.value
     }

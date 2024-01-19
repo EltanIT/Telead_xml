@@ -68,7 +68,7 @@ class CreateNewPinViewModel(val context: Context): ViewModel(){
     val statePost = MutableLiveData<Boolean>()
 
     fun postData(){
-        statePost.postValue(pinCode.value?.length ==4)
+        statePost.postValue(pinCode.value?.length == 4)
     }
 
     fun redactCode(txt: String){

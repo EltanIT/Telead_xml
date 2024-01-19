@@ -59,7 +59,7 @@ class SearchFragment : Fragment() {
                     bundle.putString("request", vm.getRequest()?:"")
                     val fragment = SearchResultListFragment()
                     fragment.arguments = bundle
-
+                    requireActivity().supportFragmentManager.popBackStack()
                     requireActivity().supportFragmentManager.beginTransaction()
                         .add(R.id.home_container_view, fragment)
                         .addToBackStack("searchResultList")
@@ -69,24 +69,21 @@ class SearchFragment : Fragment() {
             }
              false
         }
-        binding.search.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.home_container_view, SearchResultListFragment())
-                .addToBackStack("searchResultList")
-                .commit()
-        }
         binding.search.addTextChangedListener {
             vm.redactSearch(it.toString())
         }
         binding.search.setOnEditorActionListener(object: OnEditorActionListener{
             override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
                 if (p1 == EditorInfo.IME_ACTION_SEARCH){
+                    val bundle = Bundle()
+                    bundle.putString("request", vm.getRequest()?:"")
+                    val fragment = SearchResultListFragment()
+                    fragment.arguments = bundle
                     requireActivity().supportFragmentManager.popBackStack()
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .add(R.id.home_container_view, SearchResultListFragment())
+                        .add(R.id.home_container_view, fragment)
                         .addToBackStack("searchResultList")
                         .commit()
-
                     return true
                 }
                 return false
@@ -103,7 +100,6 @@ class SearchFragment : Fragment() {
         }
     }
 }
-
 
 class SearchViewModel(val context: Context): ViewModel(){
     val historyList = MutableLiveData(ArrayList<SearchHistoryData>())

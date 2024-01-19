@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.telead_xml.R
 import com.example.telead_xml.databinding.ItemTransactionBinding
 import com.example.telead_xml.domen.objects.TransactionsData
+import com.example.telead_xml.view.listener.TransactionListener
 
-class TransactionsAdapter(val list: ArrayList<TransactionsData>) : RecyclerView.Adapter<TransactionsAdapter.ViewHolder>() {
+class TransactionsAdapter(val list: ArrayList<TransactionsData>, val listener: TransactionListener) : RecyclerView.Adapter<TransactionsAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemTransactionBinding.bind(itemView)
         val resources = itemView.resources
@@ -29,6 +30,9 @@ class TransactionsAdapter(val list: ArrayList<TransactionsData>) : RecyclerView.
         holder.binding.name.text = transaction.name
         holder.binding.category.text = transaction.category
 
+        holder.itemView.setOnClickListener {
+            listener.click(transaction.name?:"")
+        }
 
     }
 

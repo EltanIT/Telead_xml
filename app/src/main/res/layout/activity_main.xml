@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.MainActivity"
     android:background="@color/activity_back"
-
     >
+
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
@@ -27,8 +27,34 @@
         android:layout_marginBottom="32dp"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
+        app:tabPaddingStart="15dp"
         />
-    
+
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@color/accent"-->
+<!--        android:id="@+id/splash_screen"-->
+<!--        >-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_launching_oval"-->
+<!--                android:layout_gravity="center"-->
+<!--                />-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_launching_shape"-->
+<!--                android:layout_gravity="center"-->
+<!--                />-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_launching_logo"-->
+<!--                android:layout_gravity="center"-->
+<!--                />-->
+<!--    </FrameLayout>-->
 
 
 </FrameLayout>

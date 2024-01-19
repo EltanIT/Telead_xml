@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.telead_xml.R
 import com.example.telead_xml.databinding.FragmentCallsBinding
 import com.example.telead_xml.domen.objects.CallData
 import com.example.telead_xml.view.adapter.CallsAdapter
+import com.example.telead_xml.view.listener.CallListener
 
 class CallsFragment : Fragment() {
 
@@ -26,36 +28,48 @@ class CallsFragment : Fragment() {
         vm = ViewModelProvider(this, CallsViewModelFactory(requireContext()))[CallsViewModel::class.java]
         subscription()
         setting()
+        vm.setting()
         return binding.root
     }
 
     private fun setting() {
-
     }
 
     private fun subscription() {
         vm.callsList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.callsRv.adapter = CallsAdapter(it)
+                binding.callsRv.adapter = CallsAdapter(it, object: CallListener{
+                    override fun call(id: String) {
+                        val bundle = Bundle()
+                        bundle.putString("id", id)
+                        val fragment = IndoxCallsVoiceCallFragment()
+                        fragment.arguments = bundle
+
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .add(R.id.full_home_container_view, fragment)
+                            .addToBackStack("callsVoice")
+                            .commit()
+                    }
+                })
             }
         }
     }
-
 }
 
 
 class CallsViewModel(val context: Context): ViewModel(){
     val callsList = MutableLiveData(ArrayList<CallData>())
 
-    private fun getHistory(){
-        callsList.value?.add(CallData("Patricia D. Regalado", "Нояб 04, 202х", "Исходящий", ""))
+    private fun getCalls(){
+        callsList.value = ArrayList()
+        callsList.value?.add(CallData("Елена Карпова", "Нояб 04, 2023", "Исходящий"))
+        callsList.value?.add(CallData("Николай Святой", "Янв 13, 2023", "Входящий"))
 
         callsList.value = callsList.value
     }
 
-
     fun setting() {
-        getHistory()
+        getCalls()
     }
 }
 

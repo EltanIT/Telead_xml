@@ -33,6 +33,9 @@
             app:itemBackground="@color/transparent"
             android:background="#F5F9FF"
             android:id="@+id/nav_bottom"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
+            android:paddingBottom="12dp"
+            android:paddingTop="4dp"
             />
     </LinearLayout>
 

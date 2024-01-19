@@ -31,7 +31,7 @@ class TopMentorFullAdapter(val list: ArrayList<MentorData>, val listener: Mentor
         holder.binding.category.text = mentor.category
 
         holder.itemView.setOnClickListener {
-            listener.click(holder.adapterPosition)
+            listener.click(mentor.name?:"")
         }
     }
 

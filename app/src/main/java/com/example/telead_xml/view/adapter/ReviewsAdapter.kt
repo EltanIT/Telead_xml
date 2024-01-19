@@ -24,17 +24,20 @@ class ReviewsAdapter(val list: ArrayList<ReviewData>) : RecyclerView.Adapter<Rev
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val courses = list[position]
-        holder.binding.name.text = courses.name
-        holder.binding.rating.text = courses.rating.toString()
-        holder.binding.description.text = courses.description
-        holder.binding.likeCount.text = courses.likes.toString()
-        holder.binding.time.text = courses.date
-
+        val review = list[position]
+        holder.binding.name.text = review.name
+        holder.binding.rating.text = review.rating.toString()
+        holder.binding.description.text = review.description
+        holder.binding.likeCount.text = review.likes.toString()
+        holder.binding.time.text = review.date
     }
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun filter(name: String?) {
+
     }
 
 }

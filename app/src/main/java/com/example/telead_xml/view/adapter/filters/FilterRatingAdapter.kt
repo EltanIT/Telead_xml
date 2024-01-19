@@ -10,7 +10,7 @@ import com.example.telead_xml.databinding.ItemFilterBinding
 import com.example.telead_xml.domen.objects.FilterRatingData
 import com.example.telead_xml.view.listener.FilterRatingListener
 
-class FilterRatingAdapter(val list: ArrayList<FilterRatingData>, val listener: FilterRatingListener) : RecyclerView.Adapter<FilterRatingAdapter.ViewHolder>() {
+class FilterRatingAdapter(val list: ArrayList<FilterRatingData>, val filter: Double?, val listener: FilterRatingListener) : RecyclerView.Adapter<FilterRatingAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemFilterBinding.bind(itemView)
         val resources = itemView.resources
@@ -27,17 +27,20 @@ class FilterRatingAdapter(val list: ArrayList<FilterRatingData>, val listener: F
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val filter = list[position]
+        val category = list[position]
 
-        holder.binding.name.text = filter.name
-        holder.binding.checkBox.isChecked = filter.check
+        if (filter != null){
+            holder.binding.checkBox.isChecked = category.rating == filter
+        }
+        holder.binding.name.text = category.name
+        holder.binding.checkBox.isChecked = category.check
 
         holder.binding.checkBox.setOnCheckedChangeListener { compoundButton, state ->
             if (state){
-                listener.addRating(filter.rating)
+                listener.addRating(category.rating)
             }
             else{
-                listener.removeRating(filter.rating)
+                listener.removeRating(category.rating)
             }
         }
     }

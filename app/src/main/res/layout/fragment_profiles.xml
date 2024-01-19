@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.ProfilesFragment"
-    android:scrollbars="none"
-    android:overScrollMode="never"
     >
 
     <LinearLayout
@@ -41,13 +39,12 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            android:translationZ="2dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="10dp"
+            android:outlineSpotShadowColor="#14000000"
             app:cardBackgroundColor="@color/white"
             android:layout_marginTop="64dp"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginBottom="8dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -166,6 +163,7 @@
                         />
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -177,7 +175,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_notification"
+                        android:src="@drawable/ic_simple_notification"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -256,7 +254,7 @@
                         android:textColor="#0961F5"
                         android:lineHeight="19sp"
                         android:layout_weight="1"
-                        android:text="English (US)"
+                        android:text="Русский (RU)"
                         android:textAlignment="textEnd"
                         android:layout_marginEnd="8dp"
                         />

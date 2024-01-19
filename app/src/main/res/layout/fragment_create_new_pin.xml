@@ -66,7 +66,11 @@
             android:focusable="true"
             android:enabled="true"
             android:layout_marginTop="64dp"
+            android:lineHeight="0dp"
+            app:itemSpacing="20dp"
+            app:lineColor="@color/transparent"
 
+            android:itemBackground="@drawable/et_white_style"
 
             />
 

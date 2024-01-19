@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.telead_xml.databinding.FragmentIndoxCallsVoiceCallBinding
 import com.example.telead_xml.domen.objects.ChatData
+import com.example.telead_xml.domen.objects.MentorData
 
 class IndoxCallsVoiceCallFragment : Fragment() {
 
@@ -25,11 +26,14 @@ class IndoxCallsVoiceCallFragment : Fragment() {
         vm = ViewModelProvider(this, IndoxCallsVoiceCallViewModelFactory(requireContext()))[IndoxCallsVoiceCallViewModel::class.java]
         subscription()
         setting()
+        vm.setting()
         return binding.root
     }
 
     private fun setting() {
-
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     private fun subscription() {
@@ -39,7 +43,7 @@ class IndoxCallsVoiceCallFragment : Fragment() {
 }
 
 class IndoxCallsVoiceCallViewModel(val context: Context): ViewModel(){
-
+    val user = MutableLiveData<MentorData>()
 
     fun setting() {
 

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.CurriculumCourseFragment"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.CurriculumCourseFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,62 +20,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="#202244"
-                    android:text="Раздел "
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="#202244"
-                    android:text="01"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="#202244"
-                    android:text=" - "
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="#0961F5"
-                    android:text="Введение"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#0961F5"
-                    android:text="25 Мин"
-                    />
-            </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
                 android:overScrollMode="never"
                 android:id="@+id/lessons_rv"
-                tools:listitem="@layout/item_lesson"
+                tools:listitem="@layout/item_section"
                 tools:itemCount="3"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
         </LinearLayout>
 
 
     </FrameLayout>
-
-
 
 </LinearLayout>

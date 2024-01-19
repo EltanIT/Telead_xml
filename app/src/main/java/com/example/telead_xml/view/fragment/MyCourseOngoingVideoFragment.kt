@@ -13,7 +13,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.telead_xml.databinding.FragmentMyCourseOngoingVideoBinding
-import java.net.URL
+import com.example.telead_xml.domen.objects.LessonData
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MyCourseOngoingVideoFragment : Fragment() {
     private lateinit var binding: FragmentMyCourseOngoingVideoBinding
@@ -23,6 +27,7 @@ class MyCourseOngoingVideoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         binding = FragmentMyCourseOngoingVideoBinding.inflate(layoutInflater)
         vm = ViewModelProvider(this, MyCourseOngoingVideoViewModelFactory(requireContext()))[MyCourseOngoingVideoViewModel::class.java]
         subscription()
@@ -32,12 +37,15 @@ class MyCourseOngoingVideoFragment : Fragment() {
     }
 
     private fun subscription() {
-        vm.video.observe(viewLifecycleOwner){
+        vm.lesson.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.playVideo.setVideoURI(it)
+                Picasso.with(requireContext())
+                binding.playVideo.setVideoPath("https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4")
                 val mediaController = MediaController(requireContext())
                 mediaController.setAnchorView(binding.playVideo)
+                mediaController.setMediaPlayer(binding.playVideo)
                 binding.playVideo.setMediaController(mediaController)
+                binding.playVideo.start()
             }
             else{
                 requireActivity().supportFragmentManager.popBackStack()
@@ -45,19 +53,27 @@ class MyCourseOngoingVideoFragment : Fragment() {
         }
     }
 
-    private fun setting() {
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-    }
 
+    private fun setting() {
+        binding.backView.setOnClickListener {
+            binding.playVideo.performClick()
+        }
+    }
 }
 
 
 class MyCourseOngoingVideoViewModel(val context: Context): ViewModel(){
-    val video = MutableLiveData<Uri?>(null)
+    val lesson = MutableLiveData(LessonData())
+
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     fun setting(bundle: Bundle?) {
         if (bundle!=null){
-            video.value = Uri.parse(bundle.getString("videoUri", null))
+            val id = Uri.parse(bundle.getString("id", ""))
+            coroutineScope.launch {
+
+            }
+            lesson.value = lesson.value
         }
     }
 }

@@ -2,14 +2,16 @@ package com.example.telead_xml.view.fragment
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.telead_xml.data.repository.course_category.GetCoursesCategoriesRepository
+import com.example.telead_xml.data.shared_pref.GetAccessToken
 import com.example.telead_xml.data.shared_pref.GetFilter
 import com.example.telead_xml.data.shared_pref.SaveFilter
 import com.example.telead_xml.databinding.FragmentFilterBinding
@@ -22,6 +24,7 @@ import com.example.telead_xml.view.adapter.filters.FilterPriceAdapter
 import com.example.telead_xml.view.adapter.filters.FilterRatingAdapter
 import com.example.telead_xml.view.adapter.filters.FilterVideoDurationAdapter
 import com.example.telead_xml.view.adapter.filters.FilterlevelsAdapter
+import com.example.telead_xml.view.listener.FilterChangedListener
 import com.example.telead_xml.view.listener.FilterListener
 import com.example.telead_xml.view.listener.FilterRatingListener
 import com.google.gson.Gson
@@ -30,7 +33,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FilterFragment : Fragment() {
+class FilterFragment(val listener: FilterChangedListener) : Fragment() {
 
     private lateinit var binding: FragmentFilterBinding
     private lateinit var vm: FilterViewModel
@@ -43,17 +46,18 @@ class FilterFragment : Fragment() {
         vm = ViewModelProvider(this, FilterViewModelFactory(requireContext()))[FilterViewModel::class.java]
         subscription()
         setting()
+        vm.setting(listener)
         return binding.root
     }
 
     override fun onResume() {
-        vm.setting()
         super.onResume()
     }
 
     private fun setting() {
         binding.apply.setOnClickListener {
             vm.postData()
+            vm.listenning()
         }
         binding.back.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -67,7 +71,7 @@ class FilterFragment : Fragment() {
     private fun subscription() {
         vm.categoryList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.subCategoriesRv.adapter = FilterCategoryAdapter(it, object: FilterListener{
+                binding.subCategoriesRv.adapter = FilterCategoryAdapter(it, vm.filter.value?.categoryIds, object: FilterListener{
                     override fun add(name: String?) {
                         vm.redactCategory(name, true)
                     }
@@ -81,7 +85,7 @@ class FilterFragment : Fragment() {
         }
         vm.levelsList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.levelsRv.adapter = FilterlevelsAdapter(it, object: FilterListener{
+                binding.levelsRv.adapter = FilterlevelsAdapter(it, vm.filter.value?.difficultLevels, object: FilterListener{
                     override fun add(name: String?) {
                         vm.redactLevel(name, true)
                     }
@@ -95,7 +99,7 @@ class FilterFragment : Fragment() {
         }
         vm.priceList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.priceRv.adapter = FilterPriceAdapter(it, object: FilterListener{
+                binding.priceRv.adapter = FilterPriceAdapter(it, vm.filter.value?.costTypes, object: FilterListener{
                     override fun add(name: String?) {
                         vm.redactCostType(name, true)
                     }
@@ -109,7 +113,7 @@ class FilterFragment : Fragment() {
         }
         vm.featuresList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.featuresRv.adapter = FilterFeaturesAdapter(it, object: FilterListener{
+                binding.featuresRv.adapter = FilterFeaturesAdapter(it, vm.filter.value?.categoryIds, object: FilterListener{
                     override fun add(name: String?) {
 
                     }
@@ -123,7 +127,7 @@ class FilterFragment : Fragment() {
         }
         vm.ratingList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.ratingRv.adapter = FilterRatingAdapter(it, object: FilterRatingListener{
+                binding.ratingRv.adapter = FilterRatingAdapter(it, vm.filter.value?.minimumRating, object: FilterRatingListener{
                     override fun addRating(rating: Double) {
                         vm.redactRating(rating, true)
                     }
@@ -137,7 +141,7 @@ class FilterFragment : Fragment() {
         }
         vm.videoDurationList.observe(viewLifecycleOwner){
             if (it!=null){
-                binding.videoDurationRv.adapter = FilterVideoDurationAdapter(it, object: FilterListener{
+                binding.videoDurationRv.adapter = FilterVideoDurationAdapter(it, vm.filter.value?.categoryIds, object: FilterListener{
                     override fun add(name: String?) {
 
                     }
@@ -170,6 +174,7 @@ class FilterFragment : Fragment() {
 class FilterViewModel(val context: Context): ViewModel(){
     val filter = MutableLiveData(FilterData())
     val statePost = MutableLiveData<Boolean>()
+    private lateinit var listener: FilterChangedListener
 
     val categoryList = MutableLiveData<ArrayList<FilterCategoryData>?>()
     val levelsList = MutableLiveData(ArrayList<FilterCategoryData>())
@@ -181,7 +186,8 @@ class FilterViewModel(val context: Context): ViewModel(){
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private val getCoursesCategoriesRepository = GetCoursesCategoriesRepository()
 
-    fun setting() {
+    fun setting(list: FilterChangedListener) {
+        listener = list
         getFilter()
         coroutineScope.launch {
             getCategory()
@@ -194,21 +200,21 @@ class FilterViewModel(val context: Context): ViewModel(){
             getFeatures()
             getRating()
             getDuration()
-            redactFormatType("", true)
+            redactFormatType("",true)
+            redactCategory("All", true)
         }
     }
 
     private fun getFilter() {
         val gson = Gson()
-        val string = GetFilter().execute(context)
-        if (string!=null){
-            filter.value = gson.fromJson(string, FilterData::class.java)
-        }
+        val string = GetFilter().execute(context)?:""
+        filter.value = gson.fromJson(string, FilterData::class.java)?: FilterData()
     }
 
     fun redactCategory(id: String?, state: Boolean){
         if (state){
             if (id != null) {
+                filter.value?.categoryIds?.clear()
                 filter.value?.categoryIds?.add(id)
             }
         }else{
@@ -226,6 +232,7 @@ class FilterViewModel(val context: Context): ViewModel(){
     }
     fun redactFormatType(name: String, state: Boolean){
         if (state){
+            filter.value?.formatTypes?.clear()
             filter.value?.formatTypes?.add("Online")
         }else{
             filter.value?.formatTypes?.remove(name)
@@ -250,8 +257,8 @@ class FilterViewModel(val context: Context): ViewModel(){
     }
 
     private fun getCategory(){
-        val responseData = getCoursesCategoriesRepository.request()
-        if (responseData!=null){
+        val responseData = getCoursesCategoriesRepository.request(GetAccessToken().execute(context)?:"")
+        if (responseData?.response?.isSuccessful == true){
             val gson = Gson()
             val itemType = object : TypeToken<ArrayList<FilterCategoryData>>() {}.type
             categoryList.postValue(gson.fromJson<ArrayList<FilterCategoryData>>(responseData.body, itemType))
@@ -294,12 +301,18 @@ class FilterViewModel(val context: Context): ViewModel(){
     fun postData() {
         val gson = Gson()
         SaveFilter().execute(gson.toJson(filter.value), context)
+        Log.i("swagger", gson.toJson(filter.value))
         statePost.value = true
     }
 
     fun clearList() {
         filter.value = FilterData()
+        postData()
+        listener.changes()
+    }
 
+    fun listenning() {
+        listener.changes()
     }
 
 }

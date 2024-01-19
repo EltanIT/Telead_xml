@@ -19,6 +19,7 @@
         android:layout_gravity="center"
         >
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Paypal"
@@ -26,6 +27,7 @@
             android:textSize="14sp"
             />
         <RadioButton
+            android:id="@+id/check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/radio_btn_selector"

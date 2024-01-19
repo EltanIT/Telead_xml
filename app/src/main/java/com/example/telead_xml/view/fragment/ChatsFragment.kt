@@ -26,6 +26,7 @@ class ChatsFragment : Fragment() {
         vm = ViewModelProvider(this, ChatsViewModelFactory(requireContext()))[ChatsViewModel::class.java]
         subscription()
         setting()
+        vm.setting()
         return binding.root
     }
 
@@ -48,14 +49,12 @@ class ChatsViewModel(val context: Context): ViewModel(){
     val chatList = MutableLiveData(ArrayList<ChatData>())
 
     private fun getList(){
-        chatList.value?.add(ChatData("3D design", "", 5, "Привет курал", ""))
-        chatList.value?.add(ChatData("3D design", "", 2, "Привет курал", ""))
-        chatList.value?.add(ChatData("3D design", "", 0, "Привет курал", ""))
-        chatList.value?.add(ChatData("3D design", "", 5, "Привет курал", ""))
+        chatList.value?.add(ChatData("Леша Держинский", "9:03", 5, "Привет, как дела?"))
+        chatList.value?.add(ChatData("Петр М.", "12:18", 2, "Я сделал то, о чем ты просил"))
+        chatList.value?.add(ChatData("Елена Карпова", "15:30", 0, "Вы все поняли?"))
 
         chatList.value = chatList.value
     }
-
 
     fun setting() {
         getList()

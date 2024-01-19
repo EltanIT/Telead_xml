@@ -2,10 +2,10 @@ package com.example.telead_xml.domen.objects
 
 import com.google.gson.annotations.SerializedName
 
-class SectionsData(
+class SectionData(
     @SerializedName("id"       ) var id       : String?             = null,
     @SerializedName("name"     ) var name     : String?             = null,
-    @SerializedName("videoUrl"     ) var videoUrl     : String?             = null,
-    @SerializedName("durationInMinutes"     ) var durationInMinutes     : Int?             = null,
+    @SerializedName("duration"     ) var duration     : Int?             = null,
+    @SerializedName("sections" ) var sections : ArrayList<LessonData> = ArrayList()
 ) {
 }

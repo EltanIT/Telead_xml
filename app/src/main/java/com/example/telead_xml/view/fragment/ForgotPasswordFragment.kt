@@ -46,6 +46,9 @@ class ForgotPasswordFragment : Fragment() {
             binding.emailBtn.isEnabled = false
             vm.postData()
         }
+        binding.back.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     private fun subscriptions() {

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.AppCompatButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="30dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:textColor="#202244"
     tools:text="3D Design"
     android:textSize="13sp"
-    android:layout_marginHorizontal="8dp"
+    android:layout_marginStart="12dp"
     android:id="@+id/name"
     android:background="@drawable/categories_home_btn_style"
     style="@style/Widget.AppCompat.Button.Borderless"
     android:paddingHorizontal="16dp"
+    android:textAllCaps="false"
     />

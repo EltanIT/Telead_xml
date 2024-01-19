@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class ProfileData(
     @SerializedName("email"    ) var email    : String? = null,
-    @SerializedName("fullname" ) var fullname : String? = null,
+    @SerializedName("fullName" ) var fullName : String? = null,
     @SerializedName("nickname" ) var nickname : String? = null,
     @SerializedName("dob"      ) var dob      : String? = null,
     @SerializedName("phone"    ) var phone    : String? = null,

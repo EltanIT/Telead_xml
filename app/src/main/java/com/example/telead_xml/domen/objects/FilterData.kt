@@ -7,7 +7,7 @@ data class FilterData(
     @SerializedName("formatTypes"     ) val formatTypes     : ArrayList<String> = arrayListOf(),
     @SerializedName("difficultLevels" ) val difficultLevels : ArrayList<String> = arrayListOf(),
     @SerializedName("categoryIds"     ) val categoryIds     : ArrayList<String> = arrayListOf(),
-    @SerializedName("minimumRating"   ) var minimumRating   : Double?              = null,
-    @SerializedName("count"           ) val count           : Int?              = 2147483647,
-    @SerializedName("countSkipped"    ) val countSkipped    : Int?              = 2147483647
+    @SerializedName("minimumRating"   ) var minimumRating   : Double?              = 0.0,
+    @SerializedName("count"           ) val count           : Int?              = 10,
+    @SerializedName("countSkipped"    ) var countSkipped    : Int?              = 0
 )
